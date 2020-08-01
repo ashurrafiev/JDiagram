@@ -2,10 +2,11 @@ package com.xrbpowered.jdiagram.chart;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import com.xrbpowered.jdiagram.data.Data;
 
-public class ScatterChart {
+public class ScatterChart extends Chart {
 
 	public static class Population {
 		public final String legend;
@@ -22,83 +23,34 @@ public class ScatterChart {
 			this.style = style;
 		}
 	}
-	
-	public int chartWidth = 750;
-	public int chartHeight = 300;
-	public boolean clipChart = false;
-	
-	public int marginLeft = 50;
-	public int marginRight = 5;
-	public int marginTop = 20;
-	public int marginBottom = 50;
-	
-	public boolean xLog = false;
-	public boolean yLog = false;
-	
-	public double minXValue = 0;
-	public double minYValue = 0;
-	public double maxXValue = 0;
-	public double maxYValue = 0;
 
-	public String title = null;
-	public String xLabel = null;
-	public String yLabel = null;
-	public String xLabelFmt = "%.1f";
-	public String yLabelFmt = "%.1f";
-	
+	public ValueAxis axisx = new ValueAxis();
+	public ValueAxis axisy = new ValueAxis();
+
 	public ArrayList<Population> populations = new ArrayList<>();
-	
-	public ScatterChart setXRange(double min, double max) {
-		this.minXValue = min;
-		this.maxXValue = max;
-		return this;
-	}
-
-	public ScatterChart setYRange(double min, double max) {
-		this.minYValue = min;
-		this.maxYValue = max;
-		return this;
-	}
 	
 	public void addPopulation(Population pop) {
 		populations.add(pop);
 	}
 	
-	public int getWidth() {
-		return chartWidth+marginLeft+marginRight;
-	}
-	
-	public int getHeight() {
-		return chartHeight+marginTop+marginBottom;
-	}
-	
 	protected double calcx(double v) {
-		return calcx(v, minXValue, maxXValue, chartWidth, xLog);
+		return chartWidth * axisx.calc(v);
 	}
 
 	protected double calcy(double v) {
-		return calcy(v, minYValue, maxYValue, chartHeight, yLog);
+		return -chartHeight * axisy.calc(v);
 	}
 
-	protected double calcx(double v, double min, double max, int width, boolean log) {
-		if(log)
-			return width * Math.log(v/min) / Math.log(max/min);
-		else
-			return width * (v-min) / (max-min);
-	}
-
-	protected double calcy(double v, double min, double max, int height, boolean log) {
-		return -calcx(v, min, max, height, log);
-	}
-
+	@Override
 	public void print(PrintStream out) {
-		out.printf("<svg width=\"%d\" height=\"%d\" xmlns=\"http://www.w3.org/2000/svg\">\n",
-				chartWidth+marginLeft+marginRight, chartHeight+marginTop+marginBottom);
+		out.printf("<svg width=\"%d\" height=\"%d\" xmlns=\"http://www.w3.org/2000/svg\">\n", getWidth(), getHeight());
 		
 		out.println("<style>");
 		out.println("text { font-family: Arial, Helvetica, sans-serif; font-size: 10px; fill: #000 }");
-		out.println(".axis { fill: none; stroke-width: 1; stroke: #000 }");
-		out.println(".grid { fill: none; stroke-width: 0.5; stroke: #ddd }");
+		if(axisLineStyle!=null)
+			out.println(".axis { "+axisLineStyle+" }");
+		if(gridLineStyle!=null)
+			out.println(".grid { "+gridLineStyle+" }");
 		out.println("</style>");
 
 		out.println("<defs>");
@@ -112,10 +64,13 @@ public class ScatterChart {
 		out.printf("<g transform=\"translate(%d %d)\">\n", marginLeft, chartHeight+marginTop);
 		
 		// grid
-		out.printf("<rect x=\"0\" y=\"%d\" width=\"%d\" height=\"%d\" style=\"fill:#fff;stroke:#ddd;stroke-width:0.5\" />\n", -chartHeight, chartWidth, chartHeight);
+		if(chartAreaStyle!=null)
+			out.printf("<rect x=\"0\" y=\"%d\" width=\"%d\" height=\"%d\" style=\"%s\" />\n", -chartHeight, chartWidth, chartHeight, chartAreaStyle);
 		out.println("<g>");
-		gridx(out, minXValue, maxXValue, chartWidth, chartHeight, xLog);
-		gridy(out, minYValue, maxYValue, chartWidth, chartHeight, yLog, 5);
+		for(Iterator<Double> d=axisx.gridPoints(); d.hasNext();)
+			gridxLine(out, d.next());
+		for(Iterator<Double> d=axisy.gridPoints(); d.hasNext();)
+			gridyLine(out, d.next(), 5);
 		out.println("</g>");
 
 		out.println(clipChart ? "<g style=\"clip-path:url(#clipChart)\">" : "<g>");
@@ -138,16 +93,15 @@ public class ScatterChart {
 		out.println("</g>");
 
 		// axes
-		out.printf("<line class=\"axis\" x1=\"%.1f\" y1=\"0\" x2=\"%.1f\" y2=\"%d\" />\n", calcx(0), calcx(0), -chartHeight);
-		if(yLabel!=null)
-			out.printf("<text x=\"-40\" y=\"%d\" text-anchor=\"middle\" transform=\"rotate(-90 -40,%d)\">%s</text>\n", -chartHeight/2, -chartHeight/2, yLabel);
-		out.printf("<line class=\"axis\" x1=\"0\" y1=\"%.1f\" x2=\"%d\" y2=\"%.1f\" />\n", calcy(0), chartWidth, calcy(0));
-		if(xLabel!=null)
-			out.printf("<text x=\"%d\" y=\"25\" text-anchor=\"middle\">%s</text>\n", chartWidth/2, xLabel);
+		if(axisLineStyle!=null) {
+			printAxisX(out);
+			printAxisY(out);
+		}
+		
 		if(title!=null)
 			out.printf("<text x=\"%d\" y=\"%d\" text-anchor=\"middle\" font-weight=\"bold\">%s</text>\n", chartWidth/2, -chartHeight-10, title);
 		
-		// legend
+		// FIXME legend
 		int lw = 60;
 		int x = chartWidth/2 - (populations.size()*lw)/2;
 		for(Population pop : populations) {
@@ -160,47 +114,31 @@ public class ScatterChart {
 		out.println("</svg>");
 	}
 
-	protected void gridxLine(PrintStream out, double x, double d, int height) {
-		out.printf("<text x=\"%.1f\" y=\"15\" text-anchor=\"middle\">"+xLabelFmt+"</text>\n", x, d); // TODO label format
-		out.printf("<line class=\"grid\" x1=\"%.1f\" y1=\"0\" x2=\"%.1f\" y2=\"%d\" />\n", x, x, -height);
+	protected void gridxLine(PrintStream out, double v) {
+		double x = calcx(v);
+		out.printf("<text x=\"%.1f\" y=\"15\" text-anchor=\"middle\">"+axisx.numberFmt+"</text>\n", x, v);
+		out.printf("<line class=\"grid\" x1=\"%.1f\" y1=\"0\" x2=\"%.1f\" y2=\"%d\" />\n", x, x, -chartHeight);
 	}
 	
-	protected void gridx(PrintStream out, double min, double max, int width, int height, boolean log) {
-		if(log) {
-			for(double d=1; d<=max; d*=10) {
-				double x = calcx(d, min, max, width, true);
-				gridxLine(out, x, d, height);
-			}
-		}
-		else {
-			double dd;
-			for(dd=1; dd*15<(max-min); dd*=10) {}
-			for(double d=min; d<=max; d+=dd) {
-				double x = calcx(d, min, max, width, false);
-				gridxLine(out, x, d, height);
-			}
-		}
+	protected void gridyLine(PrintStream out, double v, int numberOffs) {
+		double y = calcy(v);
+		out.printf("<text x=\"-5\" y=\"%.1f\" text-anchor=\"end\" >"+axisy.numberFmt+"</text>\n", y+numberOffs, v);
+		out.printf("<line class=\"grid\" x1=\"0\" y1=\"%.1f\" x2=\"%d\" y2=\"%.1f\" />\n", y, chartWidth, y);
 	}
 	
-	protected void gridyLine(PrintStream out, double y, double d, int width, int yoffs) {
-		out.printf("<text x=\"-5\" y=\"%.1f\" text-anchor=\"end\" >"+yLabelFmt+"</text>\n", y+yoffs, d); // TODO label format
-		out.printf("<line class=\"grid\" x1=\"0\" y1=\"%.1f\" x2=\"%d\" y2=\"%.1f\" />\n", y, width, y);
+	protected void printAxisX(PrintStream out) {
+		double y = calcy(axisx.zero());
+		out.printf("<line class=\"axis\" x1=\"0\" y1=\"%.1f\" x2=\"%d\" y2=\"%.1f\" />\n", y, chartWidth, y);
+		if(axisx.label!=null)
+			out.printf("<text x=\"%d\" y=\"25\" text-anchor=\"middle\">%s</text>\n", chartWidth/2, axisx.label);
+	}
+
+	protected void printAxisY(PrintStream out) {
+		double x = calcx(axisy.zero());
+		out.printf("<line class=\"axis\" x1=\"%.1f\" y1=\"0\" x2=\"%.1f\" y2=\"%d\" />\n", x, x, -chartHeight);
+		if(axisy.label!=null)
+			out.printf("<text x=\"-40\" y=\"%d\" text-anchor=\"middle\" transform=\"rotate(-90 -40,%d)\">%s</text>\n", -chartHeight/2, -chartHeight/2, axisy.label);
 	}
 	
-	protected void gridy(PrintStream out, double min, double max, int width, int height, boolean log, int yoffs) {
-		if(log) {
-			for(double d=min; d<=max; d*=10) {
-				double y = calcy(d, min, max, height, true);
-				gridyLine(out, y, d, width, yoffs);
-			}
-		}
-		else {
-			double dd;
-			for(dd=1; dd*15<(max-min); dd*=10) {}
-			for(double d=min; d<=max; d+=dd) {
-				double y = calcy(d, min, max, height, false);
-				gridyLine(out, y, d, width, yoffs);
-			}
-		}
-	}
+
 }

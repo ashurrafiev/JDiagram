@@ -7,7 +7,9 @@ data = Data.range('x', 0, 360)
 data.addCol('sin', fn( lambda row : Math.sin(Math.toRadians(row.getNum('x'))) ))
 data.addCol('cos', fn( lambda row : Math.cos(Math.toRadians(row.getNum('x'))) ))
 
-chart = ScatterChart().setXRange(0, 360).setYRange(-1, 1)
+chart = ScatterChart()
+chart.axisx.setRange(0, 360, 45).setNumberFmt('%.0f&#xb0;')
+chart.axisy.setRange(-1, 1, 0.5).setNumberFmt('%.1f')
 chart.addPopulation(Population('cos', data, 'x', 'cos', 'fill:none;stroke:#777;stroke-width:1;stroke-dasharray:2 2'))
 chart.addPopulation(Population('sin', data, 'x', 'sin', 'fill:none;stroke:#d00;stroke-width:2'))
 
