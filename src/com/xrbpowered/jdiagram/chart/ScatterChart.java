@@ -41,12 +41,28 @@ public class ScatterChart extends Chart {
 		return -chartHeight * axisy.calc(v);
 	}
 
+	protected double calcx(Anchor a) {
+		return a.calc(0, chartWidth);
+	}
+
+	protected double calcy(Anchor a) {
+		return -a.calc(0, chartHeight);
+	}
+
+	protected double calcx(Anchor a, double mid) {
+		return a.calc(0, mid, chartWidth);
+	}
+
+	protected double calcy(Anchor a, double mid) {
+		return -a.calc(0, -mid, chartHeight);
+	}
+
 	@Override
 	public void print(PrintStream out) {
 		out.printf("<svg width=\"%d\" height=\"%d\" xmlns=\"http://www.w3.org/2000/svg\">\n", getWidth(), getHeight());
 		
 		out.println("<style>");
-		out.println("text { font-family: Arial, Helvetica, sans-serif; font-size: 10px; fill: #000 }");
+		out.println("text { "+textStyle+" }");
 		if(axisLineStyle!=null)
 			out.println(".axis { "+axisLineStyle+" }");
 		if(gridLineStyle!=null)
@@ -100,14 +116,14 @@ public class ScatterChart extends Chart {
 		}
 		
 		if(title!=null)
-			out.printf("<text x=\"%d\" y=\"%d\" text-anchor=\"middle\" font-weight=\"bold\">%s</text>\n", chartWidth/2, -chartHeight-10, title);
+			out.printf("<text x=\"%.1f\" y=\"%.1f\" text-anchor=\"%s\" style=\"%s\">%s</text>\n", calcx(titleAnchorX), calcy(titleAnchorY), titleAnchorX.innerAlign(), titleStyle, title);
 		
 		// FIXME legend
 		int lw = 60;
 		int x = chartWidth/2 - (populations.size()*lw)/2;
 		for(Population pop : populations) {
-			out.printf("<line x1=\"%d\" y1=\"40\" x2=\"%d\" y2=\"40\" style=\"%s\" />\n", x, x+30, pop.style);
-			out.printf("<text x=\"%d\" y=\"43\">%s</text>\n", x+35, pop.legend);
+			out.printf("<line x1=\"%d\" y1=\"45\" x2=\"%d\" y2=\"45\" style=\"%s\" />\n", x, x+30, pop.style);
+			out.printf("<text x=\"%d\" y=\"48\">%s</text>\n", x+35, pop.legend);
 			x += lw;
 		}
 		
@@ -128,17 +144,21 @@ public class ScatterChart extends Chart {
 	}
 	
 	protected void printAxisX(PrintStream out) {
-		double y = calcy(axisy.zero());
+		double y = calcy(axisx.anchor, calcy(axisy.zero())); // axisx.anchor.calc(0, calcy(axisy.zero()), -chartHeight);
 		out.printf("<line class=\"axis\" x1=\"0\" y1=\"%.1f\" x2=\"%d\" y2=\"%.1f\" />\n", y, chartWidth, y);
-		if(axisx.label!=null)
-			out.printf("<text x=\"%d\" y=\"25\" text-anchor=\"middle\">%s</text>\n", chartWidth/2, axisx.label);
+		if(axisx.label!=null) {
+			double labely = calcy(axisx.labelAnchor, y); // axisx.labelAnchor.calc(0, y, -chartHeight);
+			out.printf("<text x=\"%d\" y=\"%.1f\" text-anchor=\"middle\">%s</text>\n", chartWidth/2, labely, axisx.label);
+		}
 	}
 
 	protected void printAxisY(PrintStream out) {
-		double x = calcx(axisx.zero());
+		double x =calcx(axisy.anchor, calcx(axisx.zero())); // axisy.anchor.calc(0, calcx(axisx.zero()), chartWidth);
 		out.printf("<line class=\"axis\" x1=\"%.1f\" y1=\"0\" x2=\"%.1f\" y2=\"%d\" />\n", x, x, -chartHeight);
-		if(axisy.label!=null)
-			out.printf("<text x=\"-40\" y=\"%d\" text-anchor=\"middle\" transform=\"rotate(-90 -40,%d)\">%s</text>\n", -chartHeight/2, -chartHeight/2, axisy.label);
+		if(axisy.label!=null) {
+			double labelx = calcx(axisy.labelAnchor, x); // axisy.labelAnchor.calc(0, x, chartWidth);
+			out.printf("<text x=\"%.1f\" y=\"%d\" text-anchor=\"middle\" transform=\"rotate(-90 %.1f,%d)\">%s</text>\n", labelx, -chartHeight/2, labelx, -chartHeight/2, axisy.label);
+		}
 	}
 	
 

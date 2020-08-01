@@ -10,7 +10,9 @@ public class ValueAxis {
 	public double max = 0;
 	public double gridStep = 0;
 
+	public Anchor anchor = Anchor.zero;
 	public String label = null;
+	public Anchor labelAnchor = Anchor.left.offset(-30);
 	public String numberFmt = "%.1e";
 
 	public ValueAxis setLogRange(double min, double max) {
@@ -33,18 +35,32 @@ public class ValueAxis {
 		return this;
 	}
 	
+	public ValueAxis setAnchor(Anchor anchor) {
+		this.anchor = anchor;
+		return this;
+	}
+	
+	public ValueAxis setLabel(String label, Anchor labelAnchor) {
+		this.label = label;
+		this.labelAnchor = labelAnchor;
+		return this;
+	}
+
 	public ValueAxis setLabel(String label) {
 		this.label = label;
 		return this;
 	}
-	
+
 	public ValueAxis setNumberFmt(String fmt) {
 		this.numberFmt = fmt;
 		return this;
 	}
 
 	public double calc(double v) {
-		return calc(v, min, max, log);
+		if(log)
+			return Math.log(v/min) / Math.log(max/min);
+		else
+			return (v-min) / (max-min);
 	}
 
 	public double zero() {
@@ -56,7 +72,7 @@ public class ValueAxis {
 			private Double x = null; 
 			@Override
 			public boolean hasNext() {
-				return x==null || x<max && gridStep>zero();
+				return (x==null || x<max) && gridStep>zero();
 			}
 			@Override
 			public Double next() {
@@ -65,12 +81,6 @@ public class ValueAxis {
 			}
 		};
 	}
-	
-	public static double calc(double v, double min, double max, boolean log) {
-		if(log)
-			return Math.log(v/min) / Math.log(max/min);
-		else
-			return (v-min) / (max-min);
-	}
+
 	
 }
