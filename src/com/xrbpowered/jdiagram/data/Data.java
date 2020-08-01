@@ -182,9 +182,9 @@ public class Data {
 		print(System.out);
 	}
 	
-	public static Data filter(Data src, Filter filter) {
-		Data data = new Data(src.headers);
-		for(Row row : src.rows) {
+	public Data filter(Filter filter) {
+		Data data = new Data(headers);
+		for(Row row : rows) {
 			if(filter.accept(row))
 				data.rows.add(row);
 		}

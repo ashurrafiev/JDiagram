@@ -73,6 +73,7 @@ public class ScatterChart extends Chart {
 			gridyLine(out, d.next(), 5);
 		out.println("</g>");
 
+		// data
 		out.println(clipChart ? "<g style=\"clip-path:url(#clipChart)\">" : "<g>");
 		for(Population pop : populations) {
 			StringBuilder path = new StringBuilder();
@@ -127,14 +128,14 @@ public class ScatterChart extends Chart {
 	}
 	
 	protected void printAxisX(PrintStream out) {
-		double y = calcy(axisx.zero());
+		double y = calcy(axisy.zero());
 		out.printf("<line class=\"axis\" x1=\"0\" y1=\"%.1f\" x2=\"%d\" y2=\"%.1f\" />\n", y, chartWidth, y);
 		if(axisx.label!=null)
 			out.printf("<text x=\"%d\" y=\"25\" text-anchor=\"middle\">%s</text>\n", chartWidth/2, axisx.label);
 	}
 
 	protected void printAxisY(PrintStream out) {
-		double x = calcx(axisy.zero());
+		double x = calcx(axisx.zero());
 		out.printf("<line class=\"axis\" x1=\"%.1f\" y1=\"0\" x2=\"%.1f\" y2=\"%d\" />\n", x, x, -chartHeight);
 		if(axisy.label!=null)
 			out.printf("<text x=\"-40\" y=\"%d\" text-anchor=\"middle\" transform=\"rotate(-90 -40,%d)\">%s</text>\n", -chartHeight/2, -chartHeight/2, axisy.label);

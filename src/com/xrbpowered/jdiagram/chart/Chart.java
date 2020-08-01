@@ -19,6 +19,11 @@ public abstract class Chart {
 	public String gridLineStyle = "fill: none; stroke-width: 0.5; stroke: #ddd";
 	public String axisLineStyle = "none; stroke-width: 1; stroke: #000";
 
+	public Chart setTitle(String title) {
+		this.title = title;
+		return this;
+	}
+	
 	public Chart setSize(int w, int h) {
 		this.chartWidth = w;
 		this.chartHeight = h;

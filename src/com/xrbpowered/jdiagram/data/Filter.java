@@ -51,7 +51,7 @@ public abstract class Filter {
 				String[] h = hdrs==null ? row.data().headers : hdrs;
 				for(int i=0; i<h.length; i++) {
 					String v = row.get(h[i]);
-					if(v==null)
+					if(v==null || v.isEmpty())
 						return false;
 				}
 				return true;

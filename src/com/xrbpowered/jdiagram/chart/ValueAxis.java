@@ -13,16 +13,28 @@ public class ValueAxis {
 	public String label = null;
 	public String numberFmt = "%.1e";
 
-	public ValueAxis setRange(double min, double max) {
-		this.min = min;
-		this.max = max;
-		return this;
+	public ValueAxis setLogRange(double min, double max) {
+		return setRange(true, min, max, 10);
+	}
+
+	public ValueAxis setLogRange(double min, double max, double step) {
+		return setRange(true, min, max, step);
 	}
 
 	public ValueAxis setRange(double min, double max, double step) {
+		return setRange(log, min, max, step);
+	}
+
+	public ValueAxis setRange(boolean log, double min, double max, double step) {
+		this.log = log;
 		this.min = min;
 		this.max = max;
 		this.gridStep = step;
+		return this;
+	}
+	
+	public ValueAxis setLabel(String label) {
+		this.label = label;
 		return this;
 	}
 	
