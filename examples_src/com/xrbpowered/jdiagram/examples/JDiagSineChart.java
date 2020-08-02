@@ -30,7 +30,6 @@ public class JDiagSineChart {
 		chart.addPopLegend(new Population(data, "x", "sin", "fill:none;stroke:#d00;stroke-width:2"));
 		
 		chart.printPage(System.out);
-		
 	}
 
 }

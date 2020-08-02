@@ -71,6 +71,22 @@ public abstract class Formula<T> {
 		};
 	}
 	
+	public static <T> Formula<T> tryOrNull(final boolean silent, final Formula<T> x) {
+		return new Formula<T>() {
+			@Override
+			public T calc(Row row) {
+				try {
+					return x.calc(row);
+				}
+				catch(Exception e) {
+					if(!silent)
+						System.err.println(e.getMessage());
+					return null;
+				}
+			}
+		};
+	}
+	
 	public static Formula<String> format(final String fmt, final Formula<?> x) {
 		return new Formula<String>() {
 			@Override

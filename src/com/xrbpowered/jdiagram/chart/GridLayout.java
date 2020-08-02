@@ -5,7 +5,8 @@ import java.io.PrintStream;
 public abstract class GridLayout {
 
 	public int numCols;
-	public int itemWidth, itemHeight;
+	public int itemWidth = 0;
+	public int itemHeight = 0;
 	public int gapx = 0;
 	public int gapy = 0;
 	
@@ -75,11 +76,11 @@ public abstract class GridLayout {
 	public abstract void printItem(PrintStream out, int index, double x, double y);
 	
 	public void printItems(PrintStream out, double left, double top) {
+		int count = countItems();
 		out.println("<g>");
 		if(frameStyle!=null)
 			out.printf("<rect x=\"%.1f\" y=\"%.1f\" width=\"%d\" height=\"%d\" style=\"%s\" />\n", left, top, getWidth(), getHeight(), frameStyle);
 		
-		int count = countItems();
 		int cols = countCols(count);
 		int rows = countRows(count);
 		int index = 0;

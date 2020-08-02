@@ -18,8 +18,6 @@ public abstract class Chart {
 	public String axisLineStyle = "none; stroke-width: 1; stroke: #555";
 	public String frameStyle = null;
 
-	public String textStyle = "font-family:Arial, Helvetica, sans-serif;font-size:9pt;fill:#00";
-	
 	public String title = null;
 	public String titleStyle = "font-weight:bold;font-size:11pt";
 	public Anchor titleAnchorX = Anchor.middle;
@@ -27,6 +25,8 @@ public abstract class Chart {
 
 	public Legend legend = (Legend) new Legend(0).setItemSize(80, 20).setGap(20, 0);
 
+	public String id = "";
+	
 	public Chart setTitle(String title) {
 		this.title = title;
 		return this;
@@ -104,7 +104,10 @@ public abstract class Chart {
 		printGrid(out);
 
 		// data
-		out.println(clipChart ? "<g style=\"clip-path:url(#clipChart)\">" : "<g>");
+		if(clipChart)
+			out.printf("<g style=\"clip-path:url(#clipChart_%s)\">\n", id);
+		else
+			out.println("<g>");
 		printData(out);
 		out.println("</g>");
 
@@ -117,34 +120,18 @@ public abstract class Chart {
 	}
 	
 	protected void printStyles(PrintStream out) {
-		out.println("text { "+textStyle+" }");
-		if(axisLineStyle!=null)
-			out.println(".axis { "+axisLineStyle+" }");
-		if(gridLineStyle!=null)
-			out.println(".grid { "+gridLineStyle+" }");
 	}
 
 	protected void printDefs(PrintStream out) {
+		// FIXME conflict between charts
 		if(clipChart) {
-			out.println("<clipPath id=\"clipChart\">");
+			out.printf("<clipPath id=\"clipChart_%s\">\n", id);
 			out.printf("<rect x=\"0\" y=\"%d\" width=\"%d\" height=\"%d\" fill=\"#fff\" />", -chartHeight, chartWidth, chartHeight);
 			out.println("</clipPath>");
 		}
 	}
 
 	public void printPage(PrintStream out) {
-		out.printf("<svg width=\"%d\" height=\"%d\" xmlns=\"http://www.w3.org/2000/svg\">\n", getWidth(), getHeight());
-		
-		out.println("<style>");
-		printStyles(out);
-		out.println("</style>");
-
-		out.println("<defs>");
-		printDefs(out);
-		out.println("</defs>");
-		
-		printChart(out);
-
-		out.println("</svg>");
+		new Page(1).add(this).printPage(out);
 	}
 }

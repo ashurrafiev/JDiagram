@@ -75,11 +75,13 @@ public class ScatterChart extends Chart {
 
 	@Override
 	protected void printGrid(PrintStream out) {
-		out.println("<g>");
+		if(gridLineStyle==null)
+			return;
+		out.printf("<g style=\"%s\">\n", gridLineStyle);
 		for(Iterator<Double> d=axisx.gridPoints(); d.hasNext();)
 			gridxLine(out, d.next());
 		for(Iterator<Double> d=axisy.gridPoints(); d.hasNext();)
-			gridyLine(out, d.next(), 5);
+			gridyLine(out, d.next());
 		out.println("</g>");
 	}
 
@@ -105,27 +107,45 @@ public class ScatterChart extends Chart {
 	
 	@Override
 	protected void printAxes(PrintStream out) {
-		if(axisLineStyle!=null) {
+		out.println("<g>");
+		if(axisLineStyle!=null)
 			printAxisX(out);
+		for(Iterator<Double> d=axisx.gridPoints(); d.hasNext();)
+			gridxNumber(out, d.next());
+		out.println("</g>");
+
+		out.println("<g>");
+		if(axisLineStyle!=null)
 			printAxisY(out);
-		}
+		for(Iterator<Double> d=axisy.gridPoints(); d.hasNext();)
+			gridyNumber(out, d.next());
+		out.println("</g>");
 	}
 	
 	protected void gridxLine(PrintStream out, double v) {
 		double x = calcx(v);
-		out.printf("<text x=\"%.1f\" y=\"15\" text-anchor=\"middle\">"+axisx.numberFmt+"</text>\n", x, v);
-		out.printf("<line class=\"grid\" x1=\"%.1f\" y1=\"0\" x2=\"%.1f\" y2=\"%d\" />\n", x, x, -chartHeight);
+		out.printf("<line x1=\"%.1f\" y1=\"0\" x2=\"%.1f\" y2=\"%d\" />\n", x, x, -chartHeight);
 	}
 	
-	protected void gridyLine(PrintStream out, double v, int numberOffs) {
+	protected void gridyLine(PrintStream out, double v) {
 		double y = calcy(v);
-		out.printf("<text x=\"-5\" y=\"%.1f\" text-anchor=\"end\" >"+axisy.numberFmt+"</text>\n", y+numberOffs, v);
-		out.printf("<line class=\"grid\" x1=\"0\" y1=\"%.1f\" x2=\"%d\" y2=\"%.1f\" />\n", y, chartWidth, y);
+		out.printf("<line x1=\"0\" y1=\"%.1f\" x2=\"%d\" y2=\"%.1f\" />\n", y, chartWidth, y);
+	}
+
+	protected void gridxNumber(PrintStream out, double v) {
+		// TODO grid number positioning
+		out.printf("<text x=\"%.1f\" y=\"15\" text-anchor=\"middle\">"+axisx.numberFmt+"</text>\n", calcx(v), v);
 	}
 	
+	protected void gridyNumber(PrintStream out, double v) {
+		// TODO grid number positioning
+		out.printf("<text x=\"-5\" y=\"%.1f\" text-anchor=\"end\" >"+axisy.numberFmt+"</text>\n", calcy(v)+5, v); // TODO proper numberOffs configuration
+	}
+
 	protected void printAxisX(PrintStream out) {
 		double y = calcy(axisx.anchor, calcy(axisy.zero()));
-		out.printf("<line class=\"axis\" x1=\"0\" y1=\"%.1f\" x2=\"%d\" y2=\"%.1f\" />\n", y, chartWidth, y);
+		if(axisLineStyle!=null)
+			out.printf("<line x1=\"0\" y1=\"%.1f\" x2=\"%d\" y2=\"%.1f\" style=\"%s\" />\n", y, chartWidth, y, axisLineStyle);
 		if(axisx.label!=null) {
 			double labely = calcy(axisx.labelAnchor, y);
 			out.printf("<text x=\"%d\" y=\"%.1f\" text-anchor=\"middle\">%s</text>\n", chartWidth/2, labely, axisx.label);
@@ -134,7 +154,8 @@ public class ScatterChart extends Chart {
 
 	protected void printAxisY(PrintStream out) {
 		double x =calcx(axisy.anchor, calcx(axisx.zero()));
-		out.printf("<line class=\"axis\" x1=\"%.1f\" y1=\"0\" x2=\"%.1f\" y2=\"%d\" />\n", x, x, -chartHeight);
+		if(axisLineStyle!=null)
+			out.printf("<line x1=\"%.1f\" y1=\"0\" x2=\"%.1f\" y2=\"%d\" style=\"%s\" />\n", x, x, -chartHeight, axisLineStyle);
 		if(axisy.label!=null) {
 			double labelx = calcx(axisy.labelAnchor, x);
 			out.printf("<text x=\"%.1f\" y=\"%d\" text-anchor=\"middle\" transform=\"rotate(-90 %.1f,%d)\">%s</text>\n", labelx, -chartHeight/2, labelx, -chartHeight/2, axisy.label);
