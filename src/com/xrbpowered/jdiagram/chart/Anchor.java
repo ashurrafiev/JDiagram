@@ -11,7 +11,7 @@ public class Anchor {
 		this.offs = offs;
 	}
 	
-	public Anchor offset(int offs) {
+	public Anchor offset(double offs) {
 		return new Anchor(this.align, this.offs + offs);
 	}
 	
@@ -29,6 +29,13 @@ public class Anchor {
 
 	public double calc(double min, double mid, double max) {
 		return align==1 ? mid+offs : calc(min, max);
+	}
+	
+	public double startOffs(double size, boolean inside) {
+		if(inside)
+			return -size*(align/2.0);
+		else
+			return -size*((2-align)/2.0);
 	}
 
 	public String innerAlign() {

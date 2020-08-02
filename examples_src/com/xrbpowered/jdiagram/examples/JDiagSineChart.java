@@ -3,13 +3,13 @@ package com.xrbpowered.jdiagram.examples;
 import com.xrbpowered.jdiagram.chart.ScatterChart;
 import com.xrbpowered.jdiagram.chart.ScatterChart.Population;
 import com.xrbpowered.jdiagram.data.Data;
-import com.xrbpowered.jdiagram.data.Formula;
 import com.xrbpowered.jdiagram.data.Data.Row;
+import com.xrbpowered.jdiagram.data.Formula;
 
 public class JDiagSineChart {
 
 	public static void main(String[] args) {
-		Data data = Data.range("x", 0, 360);
+		Data data = Data.range("x", -180, 180);
 		data.addCol("sin", new Formula<Double>() {
 			@Override
 			public Double calc(Row row) {
@@ -24,12 +24,12 @@ public class JDiagSineChart {
 		});
 		
 		ScatterChart chart = new ScatterChart();
-		chart.axisx.setRange(0, 360, 45).setNumberFmt("%.0f&#xb0;");
+		chart.axisx.setRange(-180, 180, 45).setNumberFmt("%.0f&#xb0;");
 		chart.axisy.setRange(-1, 1, 0.5).setNumberFmt("%.1f");
-		chart.addPopulation(new Population("cos", data, "x", "cos", "fill:none;stroke:#777;stroke-width:1;stroke-dasharray:2 2"));
-		chart.addPopulation(new Population("sin", data, "x", "sin", "fill:none;stroke:#d00;stroke-width:2"));
+		chart.addPopLegend(new Population(data, "x", "cos", "fill:none;stroke:#777;stroke-width:1;stroke-dasharray:2 2"));
+		chart.addPopLegend(new Population(data, "x", "sin", "fill:none;stroke:#d00;stroke-width:2"));
 		
-		chart.print(System.out);
+		chart.printPage(System.out);
 		
 	}
 
