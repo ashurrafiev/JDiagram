@@ -22,6 +22,10 @@ data.addCol('dist', format(numFmt, fn(calcDist)))
 	
 data.print()
 
+print('\nx in [%.5f, %.5f]' % (Fold.min(data, 'x'), Fold.max(data, 'x')))
+print('y in [%.5f, %.5f]' % (Fold.min(data, 'y'), Fold.max(data, 'y')))
+print('Avg dist = %.5f' % Fold.avg(data, 'dist'))
+
 data.sort(getNum('dist'))
 print('\nSorted by dist')
 data.print()
