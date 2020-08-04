@@ -58,7 +58,7 @@ public class ValueAxis {
 
 	public double calc(double v) {
 		if(log)
-			return Math.log(v/min) / Math.log(max/min);
+			return v<=0 ? 0 : Math.log(v/min) / Math.log(max/min);
 		else
 			return (v-min) / (max-min);
 	}
