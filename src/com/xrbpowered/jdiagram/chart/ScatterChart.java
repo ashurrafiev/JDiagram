@@ -90,7 +90,7 @@ public class ScatterChart extends Chart {
 		for(Population pop : populations) {
 			StringBuilder path = new StringBuilder();
 			boolean first = true;
-			for(Data.Row row : pop.data.rows) {
+			for(Data.Row row : pop.data.rows()) {
 				double x = calcx(row.getNum(pop.hdrx));
 				double y = calcy(row.getNum(pop.hdry));
 				if(first) {

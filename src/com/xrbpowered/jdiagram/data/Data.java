@@ -4,48 +4,159 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Scanner;
 
 import com.xrbpowered.jdiagram.data.Formula.Var;
 
+/**
+ * Data table.
+ * <p>
+ * Values are stored as nullable strings in rows and columns. Columns can be accessed by name (header).
+ */
 public class Data {
 
+	/**
+	 * Contains one row of values.
+	 * <p>
+	 * Values are stored as nullable strings. The number of cells matches the number of headers in the enclosing {@link Data}.
+	 * (TODO explain row referencing)
+	 */
 	public class Row {
-		private String[] cells;
+		private final String[] cells;
 		
-		public Row() {
+		/**
+		 * Create row object without adding it to {@link Data#rows}. The number of cells will match enclosing {@link Data#headers}.
+		 */
+		protected Row() {
 			cells = new String[headers.length];
 		}
 		
-		public Data data() {
-			return Data.this;
+		/**
+		 * Get the list of column headers. Returned array is the reference to the original enclosing {@link Data#headers}.
+		 * (TODO explain row referencing)
+		 * @return column headers
+		 */
+		public String[] headers() {
+			return headers;
+		}
+
+		/**
+		 * Get value of a cell by column index. Use for faster access. 
+		 * @param index column index
+		 * @return cell value
+		 */
+		protected String get(int index) {
+			return cells[index];
 		}
 		
+		/**
+		 * Update value of a cell by column index. Use for faster access. 
+		 * @param index column index
+		 * @param v new value
+		 */
+		protected void set(int index, Object v) {
+			cells[index] = v==null ? null : v.toString();
+		}
+
+		/**
+		 * Copy cell values to another array.
+		 * @param dst destination array, cannot be {@code null}
+		 * @param begin start index in this row
+		 * @param end end index in this row (inclusive)
+		 * @param dstBegin start index in destination array
+		 */
+		public void copy(String[] dst, int begin, int end, int dstBegin) {
+			for(int i=begin; i<=end; i++)
+				dst[dstBegin-begin+i] = cells[i];
+		}
+
+		/**
+		 * Copy all cell values to another array.
+		 * @param dst destination array. If {@code null}, a new array is created and returned.
+		 * @return destination array
+		 */
+		public String[] copy(String[] dst) {
+			if(dst==null)
+				dst = new String[cells.length]; 
+			copy(dst, 0, cells.length, 0);
+			return dst;
+		}
+
+		/**
+		 * Copy cell values to another row.
+		 * @param dst destination row, cannot be {@code null}
+		 * @param begin start index in this row
+		 * @param end end index in this row (inclusive)
+		 * @param dstBegin start index in destination row
+		 */
+		protected void copy(Row dst, int begin, int end, int dstBegin) {
+			copy(dst.cells, begin, end, dstBegin);
+		}
+
+		/**
+		 * Get cell value.
+		 * @param hdr column name
+		 * @return cell value, which can be {@code null}
+		 */
 		public String get(String hdr) {
 			return cells[findCol(hdr)];
 		}
 		
+		/**
+		 * Get cell value as integer.
+		 * Conversion is done by {@link Integer#parseInt(String)} and can throw a {@code NumberFormatException};
+		 * {@code null} is returned only if the cell value is null. 
+		 * @param hdr column name
+		 * @return cell value, which can be {@code null}
+		 * @throws NumberFormatException if the value is not null and does not contain a parsable integer.
+		 */
 		public Integer getInt(String hdr) {
 			String v = get(hdr);
 			return v==null ? null : Integer.parseInt(v);
 		}
 		
+		/**
+		 * Get cell value as a double-precision real number.
+		 * Conversion is done by {@link Double#parseDouble(String)} and can throw a {@code NumberFormatException};
+		 * {@code null} is returned only if the cell value is null. 
+		 * @param hdr column name
+		 * @return cell value, which can be {@code null}
+		 * @throws NumberFormatException if the value is not null and does not contain a parsable {@code double}.
+		 */
 		public Double getNum(String hdr) {
 			String v = get(hdr);
 			return v==null ? null : Double.parseDouble(v);
 		}
 		
+		/**
+		 * Get cell value as boolean. Conversion is done by {@link Boolean#parseBoolean(String)};
+		 * {@code null} is returned only if the cell value is null. 
+		 * @param hdr column name
+		 * @return cell value, which can be {@code null}
+		 */
 		public Boolean getBool(String hdr) {
 			String v = get(hdr);
 			return v==null ? null : Boolean.parseBoolean(v);
 		}
 		
+		/**
+		 * Update cell value. The value of {@code v} is converted to {@link String} using {@link Object#toString()} unless {@code v} is null. 
+		 * @param hdr column header
+		 * @param v new value
+		 */
 		public void set(String hdr, Object v) {
-			cells[findCol(hdr)] = v==null ? null : v.toString();
+			set(findCol(hdr), v);
 		}
 		
+		/**
+		 * Set multiple cell values at once. Column order is inferred from {@link #headers()}.
+		 * Copying is range-safe in case the number of values in {@code vs} does not match the number of cells. 
+		 * @param vs new values
+		 */
 		public void update(String... vs) {
 			int n = Math.min(cells.length, vs.length);
 			for(int i=0; i<n; i++)
@@ -53,10 +164,15 @@ public class Data {
 		}
 	}
 	
+	/**
+	 * List of column headers. All subclasses must ensure that, if any change to headers happens when rows are not empty,
+	 * data values must be updated respectively. Typically, this is done by clearing and recreating all rows.
+	 * See the implementation of {@link Data#addCol(String, Formula) addCol} for an example. 
+	 */
 	protected String[] headers;
 	private HashMap<String, Integer> headerMap = new HashMap<>();
 	
-	public ArrayList<Row> rows = new ArrayList<>();
+	protected ArrayList<Row> rows = new ArrayList<>();
 	
 	public Data(String... headers) {
 		setHeaders(headers);
@@ -93,6 +209,10 @@ public class Data {
 		return row;
 	}
 	
+	public Iterable<Row> rows() {
+		return Collections.unmodifiableList(rows);
+	}
+	
 	protected int findCol(String hdr) {
 		Integer col = headerMap.get(hdr);
 		if(col==null)
@@ -113,12 +233,13 @@ public class Data {
 		headerMap.put(hdr, col);
 		this.headers = headers;
 		
-		for(Row row: rows) {
-			String[] cells = new String[col+1];
-			for(int i=0; i<col; i++)
-				cells[i] = row.cells[i];
-			cells[col] = calc==null ? null : calc.calcString(row);
-			row.cells = cells;
+		ArrayList<Row> oldRows = rows;
+		rows = new ArrayList<>();
+		
+		for(Row oldRow: oldRows) {
+			Row row = addRow();
+			oldRow.copy(row, 0, col-1, 0);
+			row.set(col, calc==null ? null : calc.calcString(row));
 		}
 	}
 	
@@ -187,6 +308,14 @@ public class Data {
 		for(Row row : rows) {
 			if(filter.accept(row))
 				data.rows.add(row);
+		}
+		return data;
+	}
+	
+	public Data copy() {
+		Data data = new Data(Arrays.copyOf(headers, headers.length));
+		for(Row row : rows) {
+			data.addRow(Arrays.copyOf(row.cells, headers.length));
 		}
 		return data;
 	}

@@ -48,7 +48,7 @@ public abstract class Filter {
 		return new Filter() {
 			@Override
 			public boolean accept(Row row) {
-				String[] h = hdrs==null ? row.data().headers : hdrs;
+				String[] h = hdrs==null ? row.headers() : hdrs;
 				for(int i=0; i<h.length; i++) {
 					String v = row.get(h[i]);
 					if(v==null || v.isEmpty())
