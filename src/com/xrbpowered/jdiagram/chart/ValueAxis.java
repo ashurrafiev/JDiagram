@@ -72,7 +72,7 @@ public class ValueAxis {
 			private Double x = null; 
 			@Override
 			public boolean hasNext() {
-				return (x==null || x<max) && gridStep>zero();
+				return (x==null || x<max) && gridStep>zero() && Double.isFinite(x);
 			}
 			@Override
 			public Double next() {
