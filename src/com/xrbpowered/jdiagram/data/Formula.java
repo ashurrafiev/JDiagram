@@ -125,11 +125,49 @@ public abstract class Formula<T> {
 		};
 	}
 
+	public static Formula<String> lowercase(final Formula<String> s) {
+		return new Formula<String>() {
+			@Override
+			public String calc(Row row) {
+				String v = s.calc(row);
+				return v==null ? null : v.toLowerCase();
+			}
+		};
+	}
+
+	public static Formula<String> uppercase(final Formula<String> s) {
+		return new Formula<String>() {
+			@Override
+			public String calc(Row row) {
+				String v = s.calc(row);
+				return v==null ? null : v.toUpperCase();
+			}
+		};
+	}
+
 	public static Formula<Integer> inc(final Formula<Integer> x) {
 		return new Formula<Integer>() {
 			@Override
 			public Integer calc(Row row) {
 				return x.calc(row) + 1;
+			}
+		};
+	}
+
+	public static Formula<Integer> sumInt(final Formula<Integer> x, final Formula<Integer> y) {
+		return new Formula<Integer>() {
+			@Override
+			public Integer calc(Row row) {
+				return x.calc(row) + y.calc(row);
+			}
+		};
+	}
+
+	public static Formula<Integer> round(final Formula<Double> x) {
+		return new Formula<Integer>() {
+			@Override
+			public Integer calc(Row row) {
+				return (int)Math.round(x.calc(row));
 			}
 		};
 	}

@@ -43,7 +43,18 @@ public abstract class Filter {
 			}
 		};
 	}
-	
+
+	public static Filter regex(final String hdr, final String regex) {
+		return new Filter() {
+			@Override
+			public boolean accept(Row row) {
+				String v = row.get(hdr);
+				return v!=null && v.matches(regex);
+			}
+		};
+	}
+
+
 	public static Filter notNull(final String... hdrs) {
 		return new Filter() {
 			@Override

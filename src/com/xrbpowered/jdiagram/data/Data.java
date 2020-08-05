@@ -3,11 +3,13 @@ package com.xrbpowered.jdiagram.data;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 import com.xrbpowered.jdiagram.data.Formula.Var;
@@ -243,6 +245,22 @@ public class Data {
 		}
 	}
 	
+	public void recalc(String hdr, Formula<?> calc) {
+		int index = findCol(hdr);
+		for(Row row: rows) {
+			row.set(index, calc==null ? null : calc.calcString(row));
+		}
+	}
+	
+	public void replaceAll(String hdr, String oldValue, String newValue) {
+		int index = findCol(hdr);
+		for(Row row: rows) {
+			String v = row.get(index);
+			if(oldValue==null && v==null || oldValue!=null && oldValue.equals(v))
+				row.set(index, newValue);
+		}
+	}
+	
 	public <T> void fold(Var<T> acc, Formula<T> calc) {
 		for(Row row: rows)
 			acc.value = calc.calc(row);
@@ -270,11 +288,22 @@ public class Data {
 			}
 		});
 	}
-	
+
+	public void sort(boolean asc, String... hdr) {
+		Formula<?>[] calc = new Formula<?>[hdr.length];
+		for(int i=0; i<hdr.length; i++)
+			calc[i] = Formula.get(hdr[i]);
+		sort(asc, calc);
+	}
+
 	public void sort(final Formula<?>... calc) {
 		sort(true, calc);
 	}
-	
+
+	public void sort(String... hdr) {
+		sort(true, hdr);
+	}
+
 	public void printHeaders(PrintStream out) {
 		for(String hdr : headers) {
 			out.print(hdr);
@@ -282,32 +311,60 @@ public class Data {
 		}
 		out.println();
 	}
-	
+
+	public void printHeaders(PrintStream out, String[] cols) {
+		for(String hdr : cols) {
+			out.print(hdr);
+			out.print("\t");
+		}
+		out.println();
+	}
+
 	public void print(PrintStream out, boolean withHeaders) {
 		if(withHeaders)
 			printHeaders(out);
 		for(Row row : rows) {
 			for(int i=0; i<headers.length; i++) {
-				out.print(row.cells[i]);
+				out.print(row.get(i));
+				out.print("\t");
+			}
+			out.println();
+		}
+	}
+
+	public void printCols(PrintStream out, boolean withHeaders, String... cols) {
+		if(withHeaders)
+			printHeaders(out, cols);
+		for(Row row : rows) {
+			for(int i=0; i<cols.length; i++) {
+				out.print(row.get(cols[i]));
 				out.print("\t");
 			}
 			out.println();
 		}
 	}
 	
-	public void print(PrintStream out) {
-		print(out, true);
-	}
-	
 	public void print() {
-		print(System.out);
+		print(System.out, true);
 	}
-	
+
+	public void printCols(String... cols) {
+		printCols(System.out, true, cols);
+	}
+
 	public Data filter(Filter filter) {
 		Data data = new Data(headers);
 		for(Row row : rows) {
 			if(filter.accept(row))
 				data.rows.add(row);
+		}
+		return data;
+	}
+	
+	public Data limit(int count) {
+		Data data = new Data(headers);
+		for(int i=0; i<count; i++) {
+			data.rows.add(rows.get(i));
 		}
 		return data;
 	}
@@ -319,7 +376,41 @@ public class Data {
 		}
 		return data;
 	}
+	
+	public Data groupBy(String hdr, String[] headers, Fold<?>... folds) {
+		if(headers.length!=folds.length)
+			throw new InvalidParameterException("Number of headers and number of folds don't match");
+		String[] h = new String[headers.length+1];
+		h[0] = hdr;
+		for(int i=0; i<headers.length; i++)
+			h[i+1] = headers[i];
 
+		Data data = new Data(h);
+		LinkedHashMap<String, Data> uniques = new LinkedHashMap<>();
+		
+		int index = findCol(hdr);
+		for(Row row : rows) {
+			String v = row.get(index);
+			Data u = uniques.get(v);
+			if(u==null) {
+				u = new Data(this.headers);
+				uniques.put(v, u);
+			}
+			u.rows.add(row);
+		}
+		
+		for(String key : uniques.keySet()) {
+			Data u = uniques.get(key);
+			Row row = data.addRow();
+			row.set(0, key);
+			for(int i=0; i<headers.length; i++) {
+				row.set(i+1, folds[i].fold(u));
+			}
+		}
+
+		return data;
+	}
+	
 	public static Data read(File file, String[] headers, String sepRegex) {
 		try {
 			Scanner in = new Scanner(file);
@@ -338,7 +429,7 @@ public class Data {
 	}
 
 	public static Data read(File file, String[] headers) {
-		return read(file, headers, "(\\,\\s+)|\\s");
+		return read(file, headers, "(\\,\\s*)|\\t");
 	}
 
 	public static Data read(File file) {
