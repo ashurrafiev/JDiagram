@@ -5,14 +5,16 @@ import com.xrbpowered.jdiagram.data.Data.Row;
 public abstract class Filter {
 	
 	public abstract boolean accept(Row row);
+
+	public static boolean eq(String v1, String v2) {
+		return (v1==null || v2==null) ? v1==null && v2==null : v1.equals(v2);
+	}
 	
 	public static Filter equals(final String hdr1, final String hdr2) {
 		return new Filter() {
 			@Override
 			public boolean accept(Row row) {
-				String v1 = row.get(hdr1);
-				String v2 = row.get(hdr2);
-				return (v1==null || v2==null) ? v1==null && v2==null : v1.equals(v2);
+				return eq(row.get(hdr1), row.get(hdr2));
 			}
 		};
 	}
@@ -21,8 +23,7 @@ public abstract class Filter {
 		return new Filter() {
 			@Override
 			public boolean accept(Row row) {
-				String v1 = row.get(hdr);
-				return (v1==null || v==null) ? v1==null && v==null : v1.equals(v);
+				return eq(row.get(hdr), v);
 			}
 		};
 	}
@@ -34,9 +35,7 @@ public abstract class Filter {
 			@Override
 			public boolean accept(Row row) {
 				for(int i=0; i<hdrs.length; i++) {
-					String v1 = row.get(hdrs[i]);
-					boolean res = (v1==null || vs[i]==null) ? v1==null && vs[i]==null : v1.equals(vs[i]);
-					if(!res)
+					if(!eq(row.get(hdrs[i]), vs[i]))
 						return false;
 				}
 				return true;

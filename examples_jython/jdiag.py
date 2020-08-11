@@ -9,6 +9,7 @@ from com.xrbpowered.jdiagram.data import Data
 from com.xrbpowered.jdiagram.data import Formula
 from com.xrbpowered.jdiagram.data import Fold
 from com.xrbpowered.jdiagram.data import Filter
+from com.xrbpowered.jdiagram.data import Join
 from com.xrbpowered.jdiagram.data.Formula import *
 
 def fn(func):

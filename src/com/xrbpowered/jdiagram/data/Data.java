@@ -188,7 +188,8 @@ public class Data {
 		this.headers = headers;
 		headerMap.clear();
 		for(int i=0; i<headers.length; i++) {
-			headerMap.put(headers[i], i);
+			if(headerMap.put(headers[i], i)!=null)
+				throw new RuntimeException("Duplicate header "+headers[i]);
 		}
 	}
 	
@@ -220,6 +221,22 @@ public class Data {
 		if(col==null)
 			throw new RuntimeException("No column "+hdr);
 		return col;
+	}
+	
+	protected int[] indexMap(String[] headers) {
+		int[] indexMap = new int[headers.length];
+		for(int i=0; i<headers.length; i++)
+			indexMap[i] = findCol(headers[i]);
+		return indexMap;
+	}
+	
+	protected int[] optionalIndexMap(String[] headers) {
+		int[] indexMap = new int[headers.length];
+		for(int i=0; i<headers.length; i++) {
+			Integer col = headerMap.get(headers[i]);
+			indexMap[i] = col==null ? -1 : col;
+		}
+		return indexMap;
 	}
 	
 	public int count() {
@@ -266,6 +283,30 @@ public class Data {
 			acc.value = calc.calc(row);
 	}
 	
+	public void append(Data other) {
+		int[] indexMap = other.optionalIndexMap(headers);
+		for(Row srcRow: other.rows) {
+			Row dstRow = addRow();
+			for(int i=0; i<indexMap.length; i++) {
+				if(indexMap[i]>=0)
+					dstRow.set(i, srcRow.get(indexMap[i]));
+			}
+		}
+	}
+
+	public void appendMarked(Data other, String markHdr, String mark) {
+		int[] indexMap = other.optionalIndexMap(headers);
+		int markIndex = findCol(markHdr);
+		for(Row srcRow: other.rows) {
+			Row dstRow = addRow();
+			for(int i=0; i<indexMap.length; i++) {
+				if(indexMap[i]>=0)
+					dstRow.set(i, srcRow.get(indexMap[i]));
+			}
+			dstRow.set(markIndex, mark);
+		}
+	}
+
 	public void sort(final boolean asc, final Formula<?>... calc) {
 		rows.sort(new Comparator<Row>() {
 			@SuppressWarnings("unchecked")
@@ -373,6 +414,17 @@ public class Data {
 		Data data = new Data(Arrays.copyOf(headers, headers.length));
 		for(Row row : rows) {
 			data.addRow(Arrays.copyOf(row.cells, headers.length));
+		}
+		return data;
+	}
+	
+	public Data copyCols(String[] headers) {
+		Data data = new Data(headers);
+		int[] indexMap = indexMap(headers);
+		for(Row srcRow : rows) {
+			Row dstRow = data.addRow();
+			for(int i=0; i<headers.length; i++)
+				dstRow.set(i, srcRow.get(indexMap[i]));
 		}
 		return data;
 	}
