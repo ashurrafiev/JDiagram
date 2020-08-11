@@ -30,20 +30,16 @@ public class Data {
 	public class Row {
 		private final String[] cells;
 		
-		/**
-		 * Create row object without adding it to {@link Data#rows}. The number of cells will match enclosing {@link Data#headers}.
-		 */
-		protected Row() {
+		private Row() {
 			cells = new String[headers.length];
 		}
 		
 		/**
-		 * Get the list of column headers. Returned array is the reference to the original enclosing {@link Data#headers}.
-		 * (TODO explain row referencing)
-		 * @return column headers
+		 * Get number of columns in the enclosing {@link Data}. (TODO explain row referencing)
+		 * @return number of columns
 		 */
-		public String[] headers() {
-			return headers;
+		public int colCount() {
+			return cells.length;
 		}
 
 		/**
@@ -51,7 +47,7 @@ public class Data {
 		 * @param index column index
 		 * @return cell value
 		 */
-		protected String get(int index) {
+		public String get(int index) {
 			return cells[index];
 		}
 		
@@ -60,7 +56,7 @@ public class Data {
 		 * @param index column index
 		 * @param v new value
 		 */
-		protected void set(int index, Object v) {
+		public void set(int index, Object v) {
 			cells[index] = v==null ? null : v.toString();
 		}
 
@@ -95,7 +91,7 @@ public class Data {
 		 * @param end end index in this row (inclusive)
 		 * @param dstBegin start index in destination row
 		 */
-		protected void copy(Row dst, int begin, int end, int dstBegin) {
+		public void copy(Row dst, int begin, int end, int dstBegin) {
 			copy(dst.cells, begin, end, dstBegin);
 		}
 
@@ -155,8 +151,8 @@ public class Data {
 		}
 		
 		/**
-		 * Set multiple cell values at once. Column order is inferred from {@link #headers()}.
-		 * Copying is range-safe in case the number of values in {@code vs} does not match the number of cells. 
+		 * Set multiple cell values at once. Column order is inferred from the enclosing {@link Data}.
+		 * Copying is range-safe in case the number of values in {@code vs} does not match the number of columns. 
 		 * @param vs new values
 		 */
 		public void update(String... vs) {
@@ -166,25 +162,20 @@ public class Data {
 		}
 	}
 	
-	/**
-	 * List of column headers. All subclasses must ensure that, if any change to headers happens when rows are not empty,
-	 * data values must be updated respectively. Typically, this is done by clearing and recreating all rows.
-	 * See the implementation of {@link Data#addCol(String, Formula) addCol} for an example. 
-	 */
-	protected String[] headers;
+	private String[] headers;
 	private HashMap<String, Integer> headerMap = new HashMap<>();
+	private ArrayList<Row> rows = new ArrayList<>();
 	
-	protected ArrayList<Row> rows = new ArrayList<>();
-	
+	/**
+	 * Class constructor.
+	 * @param headers column headers
+	 * @throws RuntimeException duplicate header names
+	 */
 	public Data(String... headers) {
 		setHeaders(headers);
 	}
-
-	public String[] headers() {
-		return this.headers;
-	}
 	
-	protected void setHeaders(String[] headers) {
+	private void setHeaders(String[] headers) {
 		this.headers = headers;
 		headerMap.clear();
 		for(int i=0; i<headers.length; i++) {
@@ -195,16 +186,55 @@ public class Data {
 	
 	public void renameHeaders(String[] headers) {
 		if(this.headers.length!=headers.length)
-			throw new RuntimeException("Header count mismatch");
+			throw new InvalidParameterException("Header count mismatch");
 		setHeaders(headers);
 	}
 	
+	public void renameHeader(String oldName, String newName) {
+		Integer i = headerMap.remove(oldName);
+		if(i==null)
+			throw new RuntimeException("No column "+oldName);
+		else {
+			if(headerMap.put(newName, i)!=null)
+				throw new RuntimeException("Duplicate header "+headers[i]);
+		}
+	}
+	
+	/**
+	 * Get number of columns.
+	 * @return number of columns
+	 */
+	public int colCount() {
+		return headers.length;
+	}
+	
+	/**
+	 * Get column name by column index.
+	 * @param index column index
+	 * @return column name
+	 * @throws ArrayIndexOutOfBoundsException if {@code index<0} or {@code index>=colCount()}
+	 * @see #colCount()
+	 */
+	public String getHeader(int index) {
+		return headers[index];
+	}
+	
+	/**
+	 * Create new empty data row.
+	 * @return new row
+	 */
 	public Row addRow() {
 		Row row = new Row();
 		rows.add(row);
 		return row;
 	}
 	
+	/**
+	 * Create new data row and initialise with values.
+	 * Copying is range-safe in case the number of values in {@code vs} does not match the number of columns. 
+	 * @param vs initial values in column order
+	 * @return new row
+	 */
 	public Row addRow(String... vs) {
 		Row row = new Row();
 		row.update(vs);
@@ -212,25 +242,35 @@ public class Data {
 		return row;
 	}
 	
+	/**
+	 * Get data rows as unmodifiable iterable.
+	 * @return data rows
+	 */
 	public Iterable<Row> rows() {
 		return Collections.unmodifiableList(rows);
 	}
 	
-	protected int findCol(String hdr) {
+	/**
+	 * Find column index by column name. Lookup is relatively fast as it uses a hash map.
+	 * @param hdr column header
+	 * @return column index
+	 * @throws RuntimeException column not found
+	 */
+	public int findCol(String hdr) {
 		Integer col = headerMap.get(hdr);
 		if(col==null)
 			throw new RuntimeException("No column "+hdr);
 		return col;
 	}
 	
-	protected int[] indexMap(String[] headers) {
+	public int[] indexMap(String[] headers) {
 		int[] indexMap = new int[headers.length];
 		for(int i=0; i<headers.length; i++)
 			indexMap[i] = findCol(headers[i]);
 		return indexMap;
 	}
 	
-	protected int[] optionalIndexMap(String[] headers) {
+	public int[] optionalIndexMap(String[] headers) {
 		int[] indexMap = new int[headers.length];
 		for(int i=0; i<headers.length; i++) {
 			Integer col = headerMap.get(headers[i]);
@@ -239,10 +279,20 @@ public class Data {
 		return indexMap;
 	}
 	
+	/**
+	 * Get count of data rows.
+	 * @return row count
+	 */
 	public int count() {
 		return rows.size();
 	}
 	
+	/**
+	 * Modify column headers to add new column.
+	 * Values of the new column can be calculated using {@code calc} or initalised to {@code null} if formula is not provided.
+	 * @param hdr new column name
+	 * @param calc formula to calculate initial values, can be {@code null}
+	 */
 	public void addCol(String hdr, Formula<?> calc) {
 		int col = this.headers.length;
 		String[] headers = new String[col+1];
@@ -262,6 +312,11 @@ public class Data {
 		}
 	}
 	
+	/**
+	 * Recalculate contents of a column using formula. If formula is not provided, column values are set to {@code null}.
+	 * @param hdr column name
+	 * @param calc formula to calculate values, can be {@code null}
+	 */
 	public void recalc(String hdr, Formula<?> calc) {
 		int index = findCol(hdr);
 		for(Row row: rows) {
@@ -269,6 +324,12 @@ public class Data {
 		}
 	}
 	
+	/**
+	 * Find and replace values in a column. Uses case-sensitive string comparison for non-null values.
+	 * @param hdr column to search values
+	 * @param oldValue old value, can be {@code null}
+	 * @param newValue replacement value, can be {@code null}
+	 */
 	public void replaceAll(String hdr, String oldValue, String newValue) {
 		int index = findCol(hdr);
 		for(Row row: rows) {

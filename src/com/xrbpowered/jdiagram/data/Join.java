@@ -14,15 +14,15 @@ public abstract class Join {
 			leftPrefix = "";
 		if(rightPrefix==null)
 			rightPrefix = "";
-		String[] headers = new String[left.headers.length+right.headers.length];
+		String[] headers = new String[left.colCount()+right.colCount()];
 		int j=0;
-		for(int i=0; i<left.headers.length; i++) {
-			headers[j] = leftPrefix+left.headers[i];
+		for(int i=0; i<left.colCount(); i++) {
+			headers[j] = leftPrefix+left.getHeader(i);
 			j++;
 		}
 		int rstart = j;
-		for(int i=0; i<right.headers.length; i++) {
-			headers[j] = rightPrefix+right.headers[i];
+		for(int i=0; i<right.colCount(); i++) {
+			headers[j] = rightPrefix+right.getHeader(i);
 			j++;
 		}
 
@@ -53,16 +53,16 @@ public abstract class Join {
 
 	protected void copyData(Row row, Row lrow, Row rrow, int rstart) {
 		if(lrow!=null)
-			lrow.copy(row, 0, lrow.headers().length-1, 0);
+			lrow.copy(row, 0, lrow.colCount()-1, 0);
 		if(rrow!=null)
-			rrow.copy(row, 0, rrow.headers().length-1, rstart);
+			rrow.copy(row, 0, rrow.colCount()-1, rstart);
 	}
 
 	public static Join inner = new Join() {
 		@Override
 		protected void joinData(Data data, Data left, Data right, int[] lkeyMap, int[] rkeyMap, int rstart) {
-			for(Row lrow : left.rows)
-				for(Row rrow : right.rows) {
+			for(Row lrow : left.rows())
+				for(Row rrow : right.rows()) {
 					boolean match = match(lrow, rrow, lkeyMap, rkeyMap);
 					if(match) {
 						Row row = data.addRow();
@@ -75,9 +75,9 @@ public abstract class Join {
 	public static Join left = new Join() {
 		@Override
 		protected void joinData(Data data, Data left, Data right, int[] lkeyMap, int[] rkeyMap, int rstart) {
-			for(Row lrow : left.rows) {
+			for(Row lrow : left.rows()) {
 				boolean hasMatch = false;
-				for(Row rrow : right.rows) {
+				for(Row rrow : right.rows()) {
 					boolean match = match(lrow, rrow, lkeyMap, rkeyMap);
 					hasMatch |= match;
 					if(match) {
@@ -94,9 +94,9 @@ public abstract class Join {
 	public static Join right = new Join() {
 		@Override
 		protected void joinData(Data data, Data left, Data right, int[] lkeyMap, int[] rkeyMap, int rstart) {
-			for(Row rrow : right.rows) {
+			for(Row rrow : right.rows()) {
 				boolean hasMatch = false;
-				for(Row lrow : left.rows) {
+				for(Row lrow : left.rows()) {
 					boolean match = match(lrow, rrow, lkeyMap, rkeyMap);
 					hasMatch |= match;
 					if(match) {
@@ -113,11 +113,11 @@ public abstract class Join {
 	public static Join outer = new Join() {
 		@Override
 		protected void joinData(Data data, Data left, Data right, int[] lkeyMap, int[] rkeyMap, int rstart) {
-			boolean[] rightMatch = new boolean[right.rows.size()];
-			for(Row lrow : left.rows) {
+			boolean[] rightMatch = new boolean[right.count()];
+			for(Row lrow : left.rows()) {
 				boolean leftMatch = false;
 				int rindex = 0;
-				for(Row rrow : right.rows) {
+				for(Row rrow : right.rows()) {
 					boolean match = match(lrow, rrow, lkeyMap, rkeyMap);
 					leftMatch |= match;
 					rightMatch[rindex] |= match;
@@ -131,7 +131,7 @@ public abstract class Join {
 				}
 			}
 			int rindex = 0;
-			for(Row rrow : right.rows) {
+			for(Row rrow : right.rows()) {
 				if(!rightMatch[rindex]) {
 					copyData(data.addRow(), null, rrow, rstart);
 				}

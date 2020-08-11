@@ -58,9 +58,8 @@ public abstract class Filter {
 		return new Filter() {
 			@Override
 			public boolean accept(Row row) {
-				String[] h = hdrs==null ? row.headers() : hdrs;
-				for(int i=0; i<h.length; i++) {
-					String v = row.get(h[i]);
+				for(int i=0; i<hdrs.length; i++) {
+					String v = row.get(hdrs[i]);
 					if(v==null || v.isEmpty())
 						return false;
 				}
@@ -70,7 +69,17 @@ public abstract class Filter {
 	}
 
 	public static Filter notNull() {
-		return notNull((String[])null);
+		return new Filter() {
+			@Override
+			public boolean accept(Row row) {
+				for(int i=0; i<row.colCount(); i++) {
+					String v = row.get(i);
+					if(v==null || v.isEmpty())
+						return false;
+				}
+				return true;
+			}
+		};
 	}
 
 	public static Filter expr(final Formula<Boolean> calc) {
