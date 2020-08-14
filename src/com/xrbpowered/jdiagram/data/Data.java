@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import com.xrbpowered.jdiagram.data.Formula.Var;
@@ -46,15 +47,22 @@ public class Data {
 		 * Get value of a cell by column index. Use for faster access. 
 		 * @param index column index
 		 * @return cell value
+		 * @throws ArrayIndexOutOfBoundsException if index is outside column range
+		 * @see #colCount()
+		 * @see #get(String)
 		 */
 		public String get(int index) {
 			return cells[index];
 		}
 		
 		/**
-		 * Update value of a cell by column index. Use for faster access. 
+		 * Update value of a cell by column index. Use for faster access.
+		 * The value of {@code v} is converted to {@code String} using {@link Object#toString()} unless {@code v} is {@code null}.
 		 * @param index column index
 		 * @param v new value
+		 * @throws ArrayIndexOutOfBoundsException if index is outside column range
+		 * @see #colCount()
+		 * @see #set(String, Object)
 		 */
 		public void set(int index, Object v) {
 			cells[index] = v==null ? null : v.toString();
@@ -66,6 +74,9 @@ public class Data {
 		 * @param begin start index in this row
 		 * @param end end index in this row (inclusive)
 		 * @param dstBegin start index in destination array
+		 * @throws NullPointerException if {@code dst} is {@code null}
+		 * @throws ArrayIndexOutOfBoundsException if goes outside column range or {@code dst} range
+		 * @see #colCount()
 		 */
 		public void copy(String[] dst, int begin, int end, int dstBegin) {
 			for(int i=begin; i<=end; i++)
@@ -90,6 +101,9 @@ public class Data {
 		 * @param begin start index in this row
 		 * @param end end index in this row (inclusive)
 		 * @param dstBegin start index in destination row
+		 * @throws NullPointerException if {@code dst} is {@code null}
+		 * @throws ArrayIndexOutOfBoundsException if goes outside column range or {@code dst} range
+		 * @see #colCount()
 		 */
 		public void copy(Row dst, int begin, int end, int dstBegin) {
 			copy(dst.cells, begin, end, dstBegin);
@@ -99,6 +113,7 @@ public class Data {
 		 * Get cell value.
 		 * @param hdr column name
 		 * @return cell value, which can be {@code null}
+		 * @throws NoSuchElementException column not found
 		 */
 		public String get(String hdr) {
 			return cells[findCol(hdr)];
@@ -110,6 +125,7 @@ public class Data {
 		 * {@code null} is returned only if the cell value is null. 
 		 * @param hdr column name
 		 * @return cell value, which can be {@code null}
+		 * @throws NoSuchElementException column not found
 		 * @throws NumberFormatException if the value is not null and does not contain a parsable integer.
 		 */
 		public Integer getInt(String hdr) {
@@ -123,6 +139,7 @@ public class Data {
 		 * {@code null} is returned only if the cell value is null. 
 		 * @param hdr column name
 		 * @return cell value, which can be {@code null}
+		 * @throws NoSuchElementException column not found
 		 * @throws NumberFormatException if the value is not null and does not contain a parsable {@code double}.
 		 */
 		public Double getNum(String hdr) {
@@ -135,6 +152,7 @@ public class Data {
 		 * {@code null} is returned only if the cell value is null. 
 		 * @param hdr column name
 		 * @return cell value, which can be {@code null}
+		 * @throws NoSuchElementException column not found
 		 */
 		public Boolean getBool(String hdr) {
 			String v = get(hdr);
@@ -142,9 +160,10 @@ public class Data {
 		}
 		
 		/**
-		 * Update cell value. The value of {@code v} is converted to {@link String} using {@link Object#toString()} unless {@code v} is null. 
+		 * Update cell value. The value of {@code v} is converted to {@code String} using {@link Object#toString()} unless {@code v} is {@code null}. 
 		 * @param hdr column header
 		 * @param v new value
+		 * @throws NoSuchElementException column not found
 		 */
 		public void set(String hdr, Object v) {
 			set(findCol(hdr), v);
@@ -169,7 +188,7 @@ public class Data {
 	/**
 	 * Class constructor.
 	 * @param headers column headers
-	 * @throws RuntimeException duplicate header names
+	 * @throws InvalidParameterException duplicate header names
 	 */
 	public Data(String... headers) {
 		setHeaders(headers);
@@ -180,23 +199,36 @@ public class Data {
 		headerMap.clear();
 		for(int i=0; i<headers.length; i++) {
 			if(headerMap.put(headers[i], i)!=null)
-				throw new RuntimeException("Duplicate header "+headers[i]);
+				throw new InvalidParameterException("Duplicate header "+headers[i]);
 		}
 	}
 	
+	/**
+	 * Rename all headers.
+	 * @param headers new header names in order, must match the current number of columns
+	 * @throws InvalidParameterException number of items in {@code headers} does not match the number of columns
+	 * @throws InvalidParameterException duplicate header names
+	 */
 	public void renameHeaders(String[] headers) {
 		if(this.headers.length!=headers.length)
 			throw new InvalidParameterException("Header count mismatch");
 		setHeaders(headers);
 	}
 	
+	/**
+	 * Rename column.
+	 * @param oldName old column name
+	 * @param newName new column name
+	 * @throws NoSuchElementException no column {@code oldName}
+	 * @throws InvalidParameterException column {@code newName} already exists
+	 */
 	public void renameHeader(String oldName, String newName) {
 		Integer i = headerMap.remove(oldName);
 		if(i==null)
-			throw new RuntimeException("No column "+oldName);
+			throw new NoSuchElementException("No column "+oldName);
 		else {
 			if(headerMap.put(newName, i)!=null)
-				throw new RuntimeException("Duplicate header "+headers[i]);
+				throw new RuntimeException("Duplicate header "+newName);
 		}
 	}
 	
@@ -254,26 +286,39 @@ public class Data {
 	 * Find column index by column name. Lookup is relatively fast as it uses a hash map.
 	 * @param hdr column header
 	 * @return column index
-	 * @throws RuntimeException column not found
+	 * @throws NoSuchElementException column not found
 	 */
 	public int findCol(String hdr) {
 		Integer col = headerMap.get(hdr);
 		if(col==null)
-			throw new RuntimeException("No column "+hdr);
+			throw new NoSuchElementException("No column "+hdr);
 		return col;
 	}
 	
-	public int[] indexMap(String[] headers) {
-		int[] indexMap = new int[headers.length];
-		for(int i=0; i<headers.length; i++)
-			indexMap[i] = findCol(headers[i]);
+	/**
+	 * Find column indices by column names. Throws an exception if any of the names is not found.
+	 * @param hdrs column headers, cannot be {@code null}
+	 * @return array of column indices in the order of {@code hdrs}
+	 * @throws NoSuchElementException column not found
+	 * @throws NullPointerException if {@code hdrs} is {@code null}
+	 */
+	public int[] indexMap(String[] hdrs) {
+		int[] indexMap = new int[hdrs.length];
+		for(int i=0; i<hdrs.length; i++)
+			indexMap[i] = findCol(hdrs[i]);
 		return indexMap;
 	}
 	
-	public int[] optionalIndexMap(String[] headers) {
-		int[] indexMap = new int[headers.length];
-		for(int i=0; i<headers.length; i++) {
-			Integer col = headerMap.get(headers[i]);
+	/**
+	 * Find column indices by column names without throwing an exception. If a column name does not exist, {@code -1} index is returned.
+	 * @param hdrs column headers, cannot be {@code null}
+	 * @return array of column indices in the order of {@code hdrs}
+	 * @throws NullPointerException if {@code hdrs} is {@code null}
+	 */
+	public int[] optionalIndexMap(String[] hdrs) {
+		int[] indexMap = new int[hdrs.length];
+		for(int i=0; i<hdrs.length; i++) {
+			Integer col = headerMap.get(hdrs[i]);
 			indexMap[i] = col==null ? -1 : col;
 		}
 		return indexMap;
@@ -292,6 +337,8 @@ public class Data {
 	 * Values of the new column can be calculated using {@code calc} or initalised to {@code null} if formula is not provided.
 	 * @param hdr new column name
 	 * @param calc formula to calculate initial values, can be {@code null}
+	 * @see #recalc(String, Formula)
+	 * @see #addCol(String, String)
 	 */
 	public void addCol(String hdr, Formula<?> calc) {
 		int col = this.headers.length;
@@ -311,11 +358,32 @@ public class Data {
 			row.set(col, calc==null ? null : calc.calcString(row));
 		}
 	}
-	
+
+	/**
+	 * Modify column headers to add new column. Values of the new column are initialised to the given constant.
+	 * @param hdr new column name
+	 * @param value initial value, can be {@code null}
+	 * @see #addCol(String, Formula)
+	 */
+	public void addCol(String hdr, String value) {
+		addCol(hdr, value==null ? null : Formula.val(value));
+	}
+
+	/**
+	 * Modify column headers to add new column. Values of the new column are initialised to {@code null}.
+	 * @param hdr new column name
+	 * @see #addCol(String, Formula)
+	 * @see #addCol(String, String)
+	 */
+	public void addCol(String hdr) {
+		addCol(hdr, (Formula<?>)null);
+	}
+
 	/**
 	 * Recalculate contents of a column using formula. If formula is not provided, column values are set to {@code null}.
 	 * @param hdr column name
 	 * @param calc formula to calculate values, can be {@code null}
+	 * @see #addCol(String, Formula)
 	 */
 	public void recalc(String hdr, Formula<?> calc) {
 		int index = findCol(hdr);
@@ -344,6 +412,11 @@ public class Data {
 			acc.value = calc.calc(row);
 	}
 	
+	/**
+	 * Append data from another table respecting column names.
+	 * @param other source table
+	 * @throws NullPointerException source table is {@code null}
+	 */
 	public void append(Data other) {
 		int[] indexMap = other.optionalIndexMap(headers);
 		for(Row srcRow: other.rows) {
@@ -355,6 +428,22 @@ public class Data {
 		}
 	}
 
+	/**
+	 * Append and mark data from another table respecting column names. Appended rows are marked with a specified value.
+	 * <p>Typical use for this method is to keep track of data sources when combining data from multiple tables. For example:
+	 * <pre>
+	 * Data data = Data.read(new File("data1.csv"));
+	 * data.addCol("source", "data1");
+	 * data.appendMarked(Data.read(new File("data2.csv")), "source", "data2");
+	 * data.appendMarked(Data.read(new File("data3.csv")), "source", "data3");</pre> 
+	 * @param other source table
+	 * @param markHdr which column in the destination table to mark
+	 * @param mark marking value, can be {@code null}
+	 * @throws NullPointerException source table is {@code null}
+	 * @throws NoSuchElementException column {@code markHdr} does not exist 
+	 * @see #append(Data)
+	 * @see #addCol(String, String)
+	 */
 	public void appendMarked(Data other, String markHdr, String mark) {
 		int[] indexMap = other.optionalIndexMap(headers);
 		int markIndex = findCol(markHdr);
