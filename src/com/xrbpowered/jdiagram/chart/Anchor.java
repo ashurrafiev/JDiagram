@@ -54,12 +54,12 @@ public class Anchor {
 		}
 	}
 	
-	public static Anchor left = new Anchor(0, 0);
-	public static Anchor bottom = left;
-	public static Anchor middle = new Anchor(1, 0);
-	public static Anchor zero = middle;
-	public static Anchor right = new Anchor(2, 0);
-	public static Anchor top = right;
+	public static final Anchor left = new Anchor(0, 0);
+	public static final Anchor bottom = left;
+	public static final Anchor middle = new Anchor(1, 0);
+	public static final Anchor zero = middle;
+	public static final Anchor right = new Anchor(2, 0);
+	public static final Anchor top = right;
 	
 	
 }
