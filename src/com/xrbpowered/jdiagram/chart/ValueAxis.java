@@ -2,6 +2,8 @@ package com.xrbpowered.jdiagram.chart;
 
 import java.util.Iterator;
 
+import com.xrbpowered.jdiagram.data.NumberFormatter;
+
 public class ValueAxis {
 
 	public boolean log = false;
@@ -13,7 +15,7 @@ public class ValueAxis {
 	public Anchor anchor = Anchor.zero;
 	public String label = null;
 	public Anchor labelAnchor = Anchor.left.offset(-30);
-	public String numberFmt = "%.1e";
+	public NumberFormatter numberFmt = NumberFormatter.simple("%.1e");
 
 	public ValueAxis setLogRange(double min, double max) {
 		return setRange(true, min, max, 10);
@@ -51,8 +53,13 @@ public class ValueAxis {
 		return this;
 	}
 
+	public ValueAxis setNumberFormatter(NumberFormatter numberFmt) {
+		this.numberFmt = numberFmt;
+		return this;
+	}
+
 	public ValueAxis setNumberFmt(String fmt) {
-		this.numberFmt = fmt;
+		this.numberFmt = NumberFormatter.simple(fmt);
 		return this;
 	}
 

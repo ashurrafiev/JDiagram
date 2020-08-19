@@ -134,12 +134,16 @@ public class ScatterChart extends Chart {
 
 	protected void gridxNumber(PrintStream out, double v) {
 		// TODO grid number positioning
-		out.printf("<text x=\"%.1f\" y=\"15\" text-anchor=\"middle\">"+axisx.numberFmt+"</text>\n", calcx(v), v);
+		String s = axisx.numberFmt.format(v);
+		if(s!=null)
+			out.printf("<text x=\"%.1f\" y=\"15\" text-anchor=\"middle\">%s</text>\n", calcx(v), s);
 	}
 	
 	protected void gridyNumber(PrintStream out, double v) {
 		// TODO grid number positioning
-		out.printf("<text x=\"-5\" y=\"%.1f\" text-anchor=\"end\" >"+axisy.numberFmt+"</text>\n", calcy(v)+5, v); // TODO proper numberOffs configuration
+		String s = axisy.numberFmt.format(v);
+		if(s!=null)
+			out.printf("<text x=\"-5\" y=\"%.1f\" text-anchor=\"end\" >%s</text>\n", calcy(v)+5, s); // TODO proper numberOffs configuration
 	}
 
 	protected void printAxisX(PrintStream out) {
