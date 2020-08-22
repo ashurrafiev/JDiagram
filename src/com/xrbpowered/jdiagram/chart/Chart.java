@@ -2,6 +2,10 @@ package com.xrbpowered.jdiagram.chart;
 
 import java.io.PrintStream;
 
+/**
+ * Common superclass for all diagrams.
+ *
+ */
 public abstract class Chart {
 
 	public int chartWidth = 750;

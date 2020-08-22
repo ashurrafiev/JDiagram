@@ -7,6 +7,10 @@ import java.util.Iterator;
 import com.xrbpowered.jdiagram.chart.Legend.LegendItem;
 import com.xrbpowered.jdiagram.data.Data;
 
+/**
+ * Line chart on XY plane where data points are independent (X, Y) pairs.
+ *
+ */
 public class ScatterChart extends Chart {
 
 	public static class Population implements LegendItem {

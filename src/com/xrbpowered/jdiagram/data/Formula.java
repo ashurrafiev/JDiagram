@@ -96,15 +96,18 @@ public abstract class Formula<T> {
 			}
 		};
 	}
-	
-	public static Formula<String> percent(final Formula<Double> x) {
+
+	public static <T> Formula<String> format(final ValueFormatter<T> fmt, final Formula<T> x) {
 		return new Formula<String>() {
 			@Override
 			public String calc(Row row) {
-				Double v = x.calc(row);
-				return v==null ? null : String.format("%.2f%%", v*100.0);
+				return fmt.format(x.calc(row));
 			}
 		};
+	}
+
+	public static Formula<String> percent(final Formula<Double> x) {
+		return format(NumberFormatter.percent, x);
 	}
 
 	public static <T> Formula<Boolean> eq(final Formula<T> x, final Formula<T> y) {
