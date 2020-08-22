@@ -22,10 +22,20 @@ extends <a href="ValueFormatter.html" title="com.xrbpowered.jdiagram.data.ValueF
 </pre>
 <div class="infocard"><dl>
 <dt>All superinterfaces:</dt><dd><a href="ValueFormatter.html" title="com.xrbpowered.jdiagram.data.ValueFormatter">ValueFormatter</a>&lt;T&gt;</dd>
+<dt>Known direct implementing classes:</dt><dd><a href="ExpFormatter.html" title="com.xrbpowered.jdiagram.data.ExpFormatter">ExpFormatter</a></dd>
 </dl></div>
 <div class="comment"><p></div>
 <div class="summary">
 <h2>Summary</h2>
+<div class="summary-item">
+<h5>Constants</h5>
+<table>
+<tr><td class="mods">
+<code>static final <a href="NumberFormatter.html" title="com.xrbpowered.jdiagram.data.NumberFormatter">NumberFormatter</a></code></td>
+<td><code><span class="name"><a href="#percent">percent</a></span></code>
+</td></tr>
+</table>
+</div>
 <div class="summary-item">
 <h5>Interface Methods</h5>
 <table>
@@ -40,42 +50,29 @@ extends <a href="ValueFormatter.html" title="com.xrbpowered.jdiagram.data.ValueF
 <table>
 <tr><td class="mods">
 <code>static <a href="NumberFormatter.html" title="com.xrbpowered.jdiagram.data.NumberFormatter">NumberFormatter</a></code></td>
-<td><code><span class="name"><a href="#exp-int-">exp</a></span> (int base)</code>
-</td></tr>
-<tr><td class="mods">
-<code>static <a href="NumberFormatter.html" title="com.xrbpowered.jdiagram.data.NumberFormatter">NumberFormatter</a></code></td>
-<td><code><span class="name"><a href="#exp-int-java.lang.String-">exp</a></span> (int base, <a class="extern" title="java.lang.String">String</a> mantissaFmt)</code>
-</td></tr>
-<tr><td class="mods">
-<code>static <a href="NumberFormatter.html" title="com.xrbpowered.jdiagram.data.NumberFormatter">NumberFormatter</a></code></td>
 <td><code><span class="name"><a href="#simple-java.lang.String-">simple</a></span> (<a class="extern" title="java.lang.String">String</a> fmt)</code>
-</td></tr>
+<br/>Simple number format.</td></tr>
 </table>
 </div>
 </div>
 <div class="details">
 <div class="member">
+<h3><a class="alink" id="percent" href="#percent">percent</a></h3>
+<pre>public static final <a href="NumberFormatter.html" title="com.xrbpowered.jdiagram.data.NumberFormatter">NumberFormatter</a> <span class="name">percent</span>;</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
 <h3><a class="alink" id="simple-java.lang.String-" href="#simple-java.lang.String-">simple</a></h3>
 <pre>public static <a href="NumberFormatter.html" title="com.xrbpowered.jdiagram.data.NumberFormatter">NumberFormatter</a> <span class="name">simple</span> (
 	<a class="extern" title="java.lang.String">String</a> fmt
 );</pre>
-<div class="comment"><p></div>
-</div>
-<div class="member">
-<h3><a class="alink" id="exp-int-java.lang.String-" href="#exp-int-java.lang.String-">exp</a></h3>
-<pre>public static <a href="NumberFormatter.html" title="com.xrbpowered.jdiagram.data.NumberFormatter">NumberFormatter</a> <span class="name">exp</span> (
-	int base,
-	<a class="extern" title="java.lang.String">String</a> mantissaFmt
-);</pre>
-<div class="comment"><p></div>
-</div>
-<div class="member">
-<h3><a class="alink" id="exp-int-" href="#exp-int-">exp</a></h3>
-<pre>public static <a href="NumberFormatter.html" title="com.xrbpowered.jdiagram.data.NumberFormatter">NumberFormatter</a> <span class="name">exp</span> (
-	int base
-);</pre>
-<div class="comment"><p></div>
-</div>
+<div class="comment"><p>Simple number format.</div>
+<h5>Parameters</h5>
+<dl class="code">
+<dt><code>fmt</code></dt><dd>format string</dd>
+</dl>
+<h5>Returns</h5>
+<p class="ind">number formatter object</div>
 </div>
 </div></div></body>
 </html>

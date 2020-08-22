@@ -17,12 +17,18 @@
 ValueFormatter
 </div>
 <h1><a class="toplink" href="ValueFormatter.html">ValueFormatter</a></h1><pre><a class="extern" title="java.lang.FunctionalInterface">@FunctionalInterface</a>
-public interface <span class="name">ValueFormatter&lt;T&gt;</span>
+public interface <span class="name">ValueFormatter</span>&lt;T&gt;
 </pre>
+<h5>Type parameters</h5>
+<dl class="code">
+<dt><code>T</code></dt><dd>input value type</dd>
+</dl>
 <div class="infocard"><dl>
 <dt>Known direct subinterfaces:</dt><dd><a href="NumberFormatter.html" title="com.xrbpowered.jdiagram.data.NumberFormatter">NumberFormatter</a></dd>
 </dl></div>
-<div class="comment"><p></div>
+<div class="comment"><p>Interface for converting values of a specific type to strings according to specific rules.</div>
+<h5>See also</h5>
+<p class="ind"><code><a href="NumberFormatter.html" title="com.xrbpowered.jdiagram.data.NumberFormatter">NumberFormatter</a></code>, <code><a href="Formula.html#format-com.xrbpowered.jdiagram.data.ValueFormatter-com.xrbpowered.jdiagram.data.Formula-" title="com.xrbpowered.jdiagram.data.Formula.format(com.xrbpowered.jdiagram.data.ValueFormatter<T>, com.xrbpowered.jdiagram.data.Formula<T>)">Formula.format(ValueFormatter<T>, Formula<T>)</a></code></p>
 <div class="summary">
 <h2>Summary</h2>
 <div class="summary-item">
@@ -31,7 +37,7 @@ public interface <span class="name">ValueFormatter&lt;T&gt;</span>
 <tr><td class="mods">
 <code><a class="extern" title="java.lang.String">String</a></code></td>
 <td><code><span class="name"><a href="#format-java.lang.Object-">format</a></span> (T x)</code>
-</td></tr>
+<br/>Formats value x according to formatter rules.</td></tr>
 </table>
 </div>
 </div>
@@ -41,8 +47,13 @@ public interface <span class="name">ValueFormatter&lt;T&gt;</span>
 <pre>public <a class="extern" title="java.lang.String">String</a> <span class="name">format</span> (
 	T x
 );</pre>
-<div class="comment"><p></div>
-</div>
+<div class="comment"><p>Formats value x according to formatter rules.</div>
+<h5>Parameters</h5>
+<dl class="code">
+<dt><code>x</code></dt><dd>value to format</dd>
+</dl>
+<h5>Returns</h5>
+<p class="ind">formatted string</div>
 </div>
 </div></div></body>
 </html>

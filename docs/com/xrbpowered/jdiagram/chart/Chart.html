@@ -24,7 +24,7 @@ Chart
 Chart</dd>
 <dt>Known direct subclasses:</dt><dd><a href="ScatterChart.html" title="com.xrbpowered.jdiagram.chart.ScatterChart">ScatterChart</a></dd>
 </dl></div>
-<div class="comment"><p></div>
+<div class="comment"><p>Common superclass for all diagrams.</div>
 <div class="summary">
 <h2>Summary</h2>
 <div class="summary-item">
@@ -111,30 +111,6 @@ Chart</dd>
 <h5>Instance Methods</h5>
 <table>
 <tr><td class="mods">
-<code>protected double</code></td>
-<td><code><span class="name"><a href="#calcLeft-com.xrbpowered.jdiagram.chart.Anchor-double-boolean-">calcLeft</a></span> (<a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> a, double width, boolean inside)</code>
-</td></tr>
-<tr><td class="mods">
-<code>protected double</code></td>
-<td><code><span class="name"><a href="#calcTop-com.xrbpowered.jdiagram.chart.Anchor-double-boolean-">calcTop</a></span> (<a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> a, double height, boolean inside)</code>
-</td></tr>
-<tr><td class="mods">
-<code>protected double</code></td>
-<td><code><span class="name"><a href="#calcx-com.xrbpowered.jdiagram.chart.Anchor-">calcx</a></span> (<a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> a)</code>
-</td></tr>
-<tr><td class="mods">
-<code>protected double</code></td>
-<td><code><span class="name"><a href="#calcx-com.xrbpowered.jdiagram.chart.Anchor-double-">calcx</a></span> (<a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> a, double mid)</code>
-</td></tr>
-<tr><td class="mods">
-<code>protected double</code></td>
-<td><code><span class="name"><a href="#calcy-com.xrbpowered.jdiagram.chart.Anchor-">calcy</a></span> (<a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> a)</code>
-</td></tr>
-<tr><td class="mods">
-<code>protected double</code></td>
-<td><code><span class="name"><a href="#calcy-com.xrbpowered.jdiagram.chart.Anchor-double-">calcy</a></span> (<a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> a, double mid)</code>
-</td></tr>
-<tr><td class="mods">
 <code>int</code></td>
 <td><code><span class="name"><a href="#getHeight-">getHeight</a></span> ()</code>
 </td></tr>
@@ -143,32 +119,12 @@ Chart</dd>
 <td><code><span class="name"><a href="#getWidth-">getWidth</a></span> ()</code>
 </td></tr>
 <tr><td class="mods">
-<code>protected void</code></td>
-<td><code><span class="name"><a href="#printAxes-java.io.PrintStream-">printAxes</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out)</code>
-</td></tr>
-<tr><td class="mods">
 <code>void</code></td>
 <td><code><span class="name"><a href="#printChart-java.io.PrintStream-">printChart</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out)</code>
 </td></tr>
 <tr><td class="mods">
-<code>protected void</code></td>
-<td><code><span class="name"><a href="#printData-java.io.PrintStream-">printData</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out)</code>
-</td></tr>
-<tr><td class="mods">
-<code>protected void</code></td>
-<td><code><span class="name"><a href="#printDefs-java.io.PrintStream-">printDefs</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out)</code>
-</td></tr>
-<tr><td class="mods">
-<code>protected void</code></td>
-<td><code><span class="name"><a href="#printGrid-java.io.PrintStream-">printGrid</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out)</code>
-</td></tr>
-<tr><td class="mods">
 <code>void</code></td>
 <td><code><span class="name"><a href="#printPage-java.io.PrintStream-">printPage</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out)</code>
-</td></tr>
-<tr><td class="mods">
-<code>protected void</code></td>
-<td><code><span class="name"><a href="#printStyles-java.io.PrintStream-">printStyles</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out)</code>
 </td></tr>
 <tr><td class="mods">
 <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code></td>
@@ -186,18 +142,10 @@ Chart</dd>
 <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code></td>
 <td><code><span class="name"><a href="#setTitle-java.lang.String-com.xrbpowered.jdiagram.chart.Anchor-com.xrbpowered.jdiagram.chart.Anchor-">setTitle</a></span> (<a class="extern" title="java.lang.String">String</a> title, <a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> anchorX, <a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> anchorY)</code>
 </td></tr>
-<tr class="inherited toggle" onclick="toggleExt(this)"><td colspan="2">Show all inherited methods (11 more)</td></tr>
+<tr class="inherited toggle" onclick="toggleExt(this)"><td colspan="2">Show all inherited methods (9 more)</td></tr>
 <tr class="inherited ext sep hide"><td class="mods">
-<code>protected native <a class="extern" title="java.lang.Object">Object</a></code></td>
-<td><code><span class="name"><a class="extern">clone</a></span> ()</code>
-<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
-<tr class="inherited ext hide"><td class="mods">
 <code>boolean</code></td>
 <td><code><span class="name"><a class="extern">equals</a></span> (<a class="extern" title="java.lang.Object">Object</a>)</code>
-<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
-<tr class="inherited ext hide"><td class="mods">
-<code>protected void</code></td>
-<td><code><span class="name"><a class="extern">finalize</a></span> ()</code>
 <br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
 <tr class="inherited ext hide"><td class="mods">
 <code>final native <a class="extern" title="java.lang.Class">Class</a>&lt;?&gt;</code></td>
@@ -355,54 +303,6 @@ Chart</dd>
 <div class="comment"><p></div>
 </div>
 <div class="member">
-<h3><a class="alink" id="calcx-com.xrbpowered.jdiagram.chart.Anchor-" href="#calcx-com.xrbpowered.jdiagram.chart.Anchor-">calcx</a></h3>
-<pre>protected double <span class="name">calcx</span> (
-	<a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> a
-);</pre>
-<div class="comment"><p></div>
-</div>
-<div class="member">
-<h3><a class="alink" id="calcy-com.xrbpowered.jdiagram.chart.Anchor-" href="#calcy-com.xrbpowered.jdiagram.chart.Anchor-">calcy</a></h3>
-<pre>protected double <span class="name">calcy</span> (
-	<a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> a
-);</pre>
-<div class="comment"><p></div>
-</div>
-<div class="member">
-<h3><a class="alink" id="calcx-com.xrbpowered.jdiagram.chart.Anchor-double-" href="#calcx-com.xrbpowered.jdiagram.chart.Anchor-double-">calcx</a></h3>
-<pre>protected double <span class="name">calcx</span> (
-	<a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> a,
-	double mid
-);</pre>
-<div class="comment"><p></div>
-</div>
-<div class="member">
-<h3><a class="alink" id="calcy-com.xrbpowered.jdiagram.chart.Anchor-double-" href="#calcy-com.xrbpowered.jdiagram.chart.Anchor-double-">calcy</a></h3>
-<pre>protected double <span class="name">calcy</span> (
-	<a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> a,
-	double mid
-);</pre>
-<div class="comment"><p></div>
-</div>
-<div class="member">
-<h3><a class="alink" id="calcLeft-com.xrbpowered.jdiagram.chart.Anchor-double-boolean-" href="#calcLeft-com.xrbpowered.jdiagram.chart.Anchor-double-boolean-">calcLeft</a></h3>
-<pre>protected double <span class="name">calcLeft</span> (
-	<a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> a,
-	double width,
-	boolean inside
-);</pre>
-<div class="comment"><p></div>
-</div>
-<div class="member">
-<h3><a class="alink" id="calcTop-com.xrbpowered.jdiagram.chart.Anchor-double-boolean-" href="#calcTop-com.xrbpowered.jdiagram.chart.Anchor-double-boolean-">calcTop</a></h3>
-<pre>protected double <span class="name">calcTop</span> (
-	<a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> a,
-	double height,
-	boolean inside
-);</pre>
-<div class="comment"><p></div>
-</div>
-<div class="member">
 <h3><a class="alink" id="getWidth-" href="#getWidth-">getWidth</a></h3>
 <pre>public int <span class="name">getWidth</span> ();</pre>
 <div class="comment"><p></div>
@@ -413,43 +313,8 @@ Chart</dd>
 <div class="comment"><p></div>
 </div>
 <div class="member">
-<h3><a class="alink" id="printGrid-java.io.PrintStream-" href="#printGrid-java.io.PrintStream-">printGrid</a></h3>
-<pre>protected void <span class="name">printGrid</span> (
-	<a class="extern" title="java.io.PrintStream">PrintStream</a> out
-);</pre>
-<div class="comment"><p></div>
-</div>
-<div class="member">
-<h3><a class="alink" id="printData-java.io.PrintStream-" href="#printData-java.io.PrintStream-">printData</a></h3>
-<pre>protected void <span class="name">printData</span> (
-	<a class="extern" title="java.io.PrintStream">PrintStream</a> out
-);</pre>
-<div class="comment"><p></div>
-</div>
-<div class="member">
-<h3><a class="alink" id="printAxes-java.io.PrintStream-" href="#printAxes-java.io.PrintStream-">printAxes</a></h3>
-<pre>protected void <span class="name">printAxes</span> (
-	<a class="extern" title="java.io.PrintStream">PrintStream</a> out
-);</pre>
-<div class="comment"><p></div>
-</div>
-<div class="member">
 <h3><a class="alink" id="printChart-java.io.PrintStream-" href="#printChart-java.io.PrintStream-">printChart</a></h3>
 <pre>public void <span class="name">printChart</span> (
-	<a class="extern" title="java.io.PrintStream">PrintStream</a> out
-);</pre>
-<div class="comment"><p></div>
-</div>
-<div class="member">
-<h3><a class="alink" id="printStyles-java.io.PrintStream-" href="#printStyles-java.io.PrintStream-">printStyles</a></h3>
-<pre>protected void <span class="name">printStyles</span> (
-	<a class="extern" title="java.io.PrintStream">PrintStream</a> out
-);</pre>
-<div class="comment"><p></div>
-</div>
-<div class="member">
-<h3><a class="alink" id="printDefs-java.io.PrintStream-" href="#printDefs-java.io.PrintStream-">printDefs</a></h3>
-<pre>protected void <span class="name">printDefs</span> (
 	<a class="extern" title="java.io.PrintStream">PrintStream</a> out
 );</pre>
 <div class="comment"><p></div>

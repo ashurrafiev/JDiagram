@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ExpFormatter</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0" />
+<link rel="stylesheet" href="../../../../doc.css" />
+<script src="../../../../doc.js"></script>
+</head>
+<body class="bg">
+<button id="upBtn" title="Scroll to top" onclick="scrollUp()">&#129093;</button>
+<div class="body"><div class="page">
+<div class="nav">
+<a href="../../../../index.html">JDiagram API Reference</a>
+&#11208; 
+<a href="package-summary.html">com.xrbpowered.jdiagram.data</a>&#11208; 
+ExpFormatter
+</div>
+<h1><a class="toplink" href="ExpFormatter.html">ExpFormatter</a></h1><pre>public class <span class="name">ExpFormatter</span>
+implements <a href="NumberFormatter.html" title="com.xrbpowered.jdiagram.data.NumberFormatter">NumberFormatter</a>
+</pre>
+<div class="infocard"><dl>
+<dt>Hierarchy:</dt><dd>
+<a class="extern" title="java.lang.Object">Object</a> &#11208;
+ExpFormatter</dd>
+<dt>All implemented interfaces:</dt><dd><a href="NumberFormatter.html" title="com.xrbpowered.jdiagram.data.NumberFormatter">NumberFormatter</a>, <a href="ValueFormatter.html" title="com.xrbpowered.jdiagram.data.ValueFormatter">ValueFormatter</a>&lt;T&gt;</dd>
+</dl></div>
+<div class="comment"><p></div>
+<div class="summary">
+<h2>Summary</h2>
+<div class="summary-item">
+<h5>Constants</h5>
+<table>
+<tr class="inherited"><td class="mods">
+<code>static final <a href="NumberFormatter.html" title="com.xrbpowered.jdiagram.data.NumberFormatter">NumberFormatter</a></code></td>
+<td><code><span class="name"><a href="NumberFormatter.html#percent">percent</a></span></code>
+<br/>Inherited from <code><a href="NumberFormatter.html" title="com.xrbpowered.jdiagram.data.NumberFormatter">NumberFormatter</a></code>.</td></tr>
+</table>
+</div>
+<div class="summary-item">
+<h5>Instance Fields</h5>
+<table>
+<tr><td class="mods">
+<code>final int</code></td>
+<td><code><span class="name"><a href="#base">base</a></span></code>
+<br/>Exponent base.</td></tr>
+</table>
+</div>
+<div class="summary-item">
+<h5>Instance Methods</h5>
+<table>
+<tr><td class="mods">
+<code><a class="extern" title="java.lang.String">String</a></code></td>
+<td><code><span class="name"><a href="#format-java.lang.Double-">format</a></span> (<a class="extern" title="java.lang.Double">Double</a> x)</code>
+<br/>Formats value x according to formatter rules.</td></tr>
+<tr class="inherited toggle" onclick="toggleExt(this)"><td colspan="2">Show all inherited methods (9 more)</td></tr>
+<tr class="inherited ext sep hide"><td class="mods">
+<code>boolean</code></td>
+<td><code><span class="name"><a class="extern">equals</a></span> (<a class="extern" title="java.lang.Object">Object</a>)</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>final native <a class="extern" title="java.lang.Class">Class</a>&lt;?&gt;</code></td>
+<td><code><span class="name"><a class="extern">getClass</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>native int</code></td>
+<td><code><span class="name"><a class="extern">hashCode</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>final native void</code></td>
+<td><code><span class="name"><a class="extern">notify</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>final native void</code></td>
+<td><code><span class="name"><a class="extern">notifyAll</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code><a class="extern" title="java.lang.String">String</a></code></td>
+<td><code><span class="name"><a class="extern">toString</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>final void</code></td>
+<td><code><span class="name"><a class="extern">wait</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>final native void</code></td>
+<td><code><span class="name"><a class="extern">wait</a></span> (long)</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>final void</code></td>
+<td><code><span class="name"><a class="extern">wait</a></span> (long, int)</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+</table>
+</div>
+<div class="summary-item">
+<h5>Static Methods</h5>
+<table>
+<tr><td class="mods">
+<code>static <a href="ExpFormatter.html" title="com.xrbpowered.jdiagram.data.ExpFormatter">ExpFormatter</a></code></td>
+<td><code><span class="name"><a href="#plainExp-int-">plainExp</a></span> (int base)</code>
+<br/>Plain text format as an integer power of a specific base written as <code>"B^X"</code>,
+ where B is the base and X is the power (exponent).</td></tr>
+<tr><td class="mods">
+<code>static <a href="ExpFormatter.html" title="com.xrbpowered.jdiagram.data.ExpFormatter">ExpFormatter</a></code></td>
+<td><code><span class="name"><a href="#plainExp-int-java.lang.String-">plainExp</a></span> (int base, <a class="extern" title="java.lang.String">String</a> mantissaFmt)</code>
+<br/>Plain text format as mantissa and exponent in a specific base written as <code>"M*B^X"</code>,
+ where M is mantissa, B is the base, and X is the power (exponent).</td></tr>
+<tr class="inherited"><td class="mods">
+<code>static <a href="NumberFormatter.html" title="com.xrbpowered.jdiagram.data.NumberFormatter">NumberFormatter</a></code></td>
+<td><code><span class="name"><a href="NumberFormatter.html#simple-java.lang.String-">simple</a></span> (<a class="extern" title="java.lang.String">String</a> fmt)</code>
+<br/>Inherited from <code><a href="NumberFormatter.html" title="com.xrbpowered.jdiagram.data.NumberFormatter">NumberFormatter</a></code>.</td></tr>
+<tr><td class="mods">
+<code>static <a href="ExpFormatter.html" title="com.xrbpowered.jdiagram.data.ExpFormatter">ExpFormatter</a></code></td>
+<td><code><span class="name"><a href="#svgExp-int-double-">svgExp</a></span> (int base, double dy)</code>
+<br/>SVG-compatible format as an integer power of a specific base written in superscript form using <code>&lt;tspan&gt;</code> tag.</td></tr>
+<tr><td class="mods">
+<code>static <a href="ExpFormatter.html" title="com.xrbpowered.jdiagram.data.ExpFormatter">ExpFormatter</a></code></td>
+<td><code><span class="name"><a href="#svgExp-int-java.lang.String-double-">svgExp</a></span> (int base, <a class="extern" title="java.lang.String">String</a> mantissaFmt, double dy)</code>
+<br/>SVG-compatible format as mantissa and exponent in a specific base written in superscript form using <code>&lt;tspan&gt;</code> tag.</td></tr>
+</table>
+</div>
+</div>
+<div class="details">
+<div class="member">
+<h3><a class="alink" id="base" href="#base">base</a></h3>
+<pre>public final int <span class="name">base</span>;</pre>
+<div class="comment"><p>Exponent base.</div>
+</div>
+<div class="member">
+<h3><a class="alink" id="format-java.lang.Double-" href="#format-java.lang.Double-">format</a></h3>
+<pre><a class="extern" title="java.lang.Override">@Override</a>
+public <a class="extern" title="java.lang.String">String</a> <span class="name">format</span> (
+	<a class="extern" title="java.lang.Double">Double</a> x
+);</pre>
+<p class="overrides">Implements <code><a href="ValueFormatter.html#format-java.lang.Object-" title="com.xrbpowered.jdiagram.data.ValueFormatter.format(T)">ValueFormatter.format(T)</a></code>. Copied description:</p>
+<div class="comment"><p>Formats value x according to formatter rules.</div>
+<h5>Parameters</h5>
+<dl class="code">
+<dt><code>x</code></dt><dd>value to format</dd>
+</dl>
+<h5>Returns</h5>
+<p class="ind">formatted string</div>
+<div class="member">
+<h3><a class="alink" id="plainExp-int-" href="#plainExp-int-">plainExp</a></h3>
+<pre>public static <a href="ExpFormatter.html" title="com.xrbpowered.jdiagram.data.ExpFormatter">ExpFormatter</a> <span class="name">plainExp</span> (
+	int base
+);</pre>
+<div class="comment"><p>Plain text format as an integer power of a specific base written as <code>"B^X"</code>,
+ where B is the base and X is the power (exponent).
+ <p>
+ Note that the number is rounded to the nearest integer power of <code>base</code>.
+ If you need precise expression, use <a href="#plainExp-int-java.lang.String-" title="com.xrbpowered.jdiagram.data.ExpFormatter.plainExp(int, java.lang.String)">mantissa version</a> instead.</div>
+<h5>Parameters</h5>
+<dl class="code">
+<dt><code>base</code></dt><dd>the base of exponent; for example, in <code>2^X</code>, 2 is the base</dd>
+</dl>
+<h5>Returns</h5>
+<p class="ind">number formatter object encapsulating the rule<h5>See also</h5>
+<p class="ind"><code><a href="#plainExp-int-java.lang.String-" title="com.xrbpowered.jdiagram.data.ExpFormatter.plainExp(int, java.lang.String)">plainExp(int, String)</a></code></p>
+</div>
+<div class="member">
+<h3><a class="alink" id="plainExp-int-java.lang.String-" href="#plainExp-int-java.lang.String-">plainExp</a></h3>
+<pre>public static <a href="ExpFormatter.html" title="com.xrbpowered.jdiagram.data.ExpFormatter">ExpFormatter</a> <span class="name">plainExp</span> (
+	int base,
+	<a class="extern" title="java.lang.String">String</a> mantissaFmt
+);</pre>
+<div class="comment"><p>Plain text format as mantissa and exponent in a specific base written as <code>"M*B^X"</code>,
+ where M is mantissa, B is the base, and X is the power (exponent).</div>
+<h5>Parameters</h5>
+<dl class="code">
+<dt><code>base</code></dt><dd>the base of exponent; for example, in <code>2^X</code>, 2 is the base</dd>
+<dt><code>mantissaFmt</code></dt><dd>mantissa format string compatible with <code><a href="NumberFormatter.html#simple-java.lang.String-" title="com.xrbpowered.jdiagram.data.NumberFormatter.simple(java.lang.String)">simple number format</a></code>.
+   <p>
+   Format string should expect mantissa to be a floating point number. Valid examples are:
+   <code>"%f"</code>, <code>"%.1f"</code>, <code>"%+.3f"</code>, and so on. Using <code>"%e"</code> is not recommended
+   as it would not make sense in the final result.</dd>
+</dl>
+<h5>Returns</h5>
+<p class="ind">number formatter object encapsulating the rule<h5>See also</h5>
+<p class="ind"><code><a href="#plainExp-int-" title="com.xrbpowered.jdiagram.data.ExpFormatter.plainExp(int)">plainExp(int)</a></code></p>
+</div>
+<div class="member">
+<h3><a class="alink" id="svgExp-int-double-" href="#svgExp-int-double-">svgExp</a></h3>
+<pre>public static <a href="ExpFormatter.html" title="com.xrbpowered.jdiagram.data.ExpFormatter">ExpFormatter</a> <span class="name">svgExp</span> (
+	int base,
+	double dy
+);</pre>
+<div class="comment"><p>SVG-compatible format as an integer power of a specific base written in superscript form using <code>&lt;tspan&gt;</code> tag.
+ The exact format is:
+ <pre><code> B&lt;tspan dy="dy" style="font-size:smaller"&gt;X&lt;/tspan&gt;</code></pre>
+ where B is the base and X is the power (exponent); <code>dy</code> is the superscript offset.
+ The formatted string can be used within SVG tag <code>&lt;text&gt;</code> and should appear as:
+ <blockquote>B<sup>X</sup></blockquote>
+ <p>
+ Note that the number is rounded to the nearest integer power of <code>base</code>.
+ If you need precise expression, use <a href="#svgExp-int-java.lang.String-double-" title="com.xrbpowered.jdiagram.data.ExpFormatter.svgExp(int, java.lang.String, double)">mantissa version</a> of instead.</div>
+<h5>Parameters</h5>
+<dl class="code">
+<dt><code>base</code></dt><dd>the base of exponent; for example, in 2<sup>X</sup>, 2 is the base</dd>
+<dt><code>dy</code></dt><dd>superscript offset in pixels</dd>
+</dl>
+<h5>Returns</h5>
+<p class="ind">number formatter object encapsulating the rule<h5>See also</h5>
+<p class="ind"><code><a href="#svgExp-int-java.lang.String-double-" title="com.xrbpowered.jdiagram.data.ExpFormatter.svgExp(int, java.lang.String, double)">svgExp(int, String, double)</a></code>, <code><a href="#plainExp-int-" title="com.xrbpowered.jdiagram.data.ExpFormatter.plainExp(int)">plainExp(int)</a></code></p>
+</div>
+<div class="member">
+<h3><a class="alink" id="svgExp-int-java.lang.String-double-" href="#svgExp-int-java.lang.String-double-">svgExp</a></h3>
+<pre>public static <a href="ExpFormatter.html" title="com.xrbpowered.jdiagram.data.ExpFormatter">ExpFormatter</a> <span class="name">svgExp</span> (
+	int base,
+	<a class="extern" title="java.lang.String">String</a> mantissaFmt,
+	double dy
+);</pre>
+<div class="comment"><p>SVG-compatible format as mantissa and exponent in a specific base written in superscript form using <code>&lt;tspan&gt;</code> tag.
+ The exact format is:
+ <pre><code> M&amp;#x00b7;B&lt;tspan dy="dy" style="font-size:smaller"&gt;X&lt;/tspan&gt;</code></pre>
+ where M is mantissa, B is the base, and X is the power (exponent); <code>dy</code> is the superscript offset.
+ The formatted string can be used within SVG tag <code>&lt;text&gt;</code> and should appear as:
+ <blockquote>M&#x00b7;B<sup>X</sup></blockquote></div>
+<h5>Parameters</h5>
+<dl class="code">
+<dt><code>base</code></dt><dd>the base of exponent; for example, in 2<sup>X</sup>, 2 is the base</dd>
+<dt><code>mantissaFmt</code></dt><dd>mantissaFmt mantissa format string compatible with <code><a href="NumberFormatter.html#simple-java.lang.String-" title="com.xrbpowered.jdiagram.data.NumberFormatter.simple(java.lang.String)">simple number format</a></code>.
+   <p>
+   Format string should expect mantissa to be a floating point number. Valid examples are:
+   <code>"%f"</code>, <code>"%.1f"</code>, <code>"%+.3f"</code>, and so on. Using <code>"%e"</code> is not recommended
+   as it would not make sense in the final result.</dd>
+<dt><code>dy</code></dt><dd>superscript offset in pixels</dd>
+</dl>
+<h5>Returns</h5>
+<p class="ind">number formatter object encapsulating the rule<h5>See also</h5>
+<p class="ind"><code><a href="#svgExp-int-double-" title="com.xrbpowered.jdiagram.data.ExpFormatter.svgExp(int, double)">svgExp(int, double)</a></code>, <code><a href="#plainExp-int-java.lang.String-" title="com.xrbpowered.jdiagram.data.ExpFormatter.plainExp(int, java.lang.String)">plainExp(int, String)</a></code></p>
+</div>
+</div>
+</div></div></body>
+</html>
