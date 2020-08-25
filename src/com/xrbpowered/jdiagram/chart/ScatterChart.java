@@ -17,14 +17,22 @@ public class ScatterChart extends Chart {
 		public final Data data;
 		public final String hdrx;
 		public final String hdry;
-		public String style;
+		
 		public String legend = null;
+		
+		public DataRenderer renderer = new LineRenderer();
+		public String style;
 		
 		public Population(Data data, String hdrx, String hdry, String style) {
 			this.data = data;
 			this.hdrx = hdrx;
 			this.hdry = hdry;
 			this.style = style;
+		}
+		
+		public Population setRenderer(DataRenderer renderer) {
+			this.renderer = renderer;
+			return this;
 		}
 
 		public Population addLegend(Legend legend) {
@@ -92,6 +100,16 @@ public class ScatterChart extends Chart {
 	@Override
 	protected void printData(PrintStream out) {
 		for(Population pop : populations) {
+			DataRenderer r = pop.renderer;
+			r.start(out, pop.style, pop.data.count(), pop.data);
+			for(Data.Row row : pop.data.rows()) {
+				double x = calcx(row.getNum(pop.hdrx));
+				double y = calcy(row.getNum(pop.hdry));
+				r.addPoint(x, y, row);
+			}
+			r.finish();
+		}
+		/*for(Population pop : populations) {
 			StringBuilder path = new StringBuilder();
 			boolean first = true;
 			for(Data.Row row : pop.data.rows()) {
@@ -106,7 +124,7 @@ public class ScatterChart extends Chart {
 				path.append(String.format("%.1f,%.1f", x, y));
 			}
 			out.printf("<path d=\"%s\" style=\"%s\" />\n", path.toString(), pop.style);
-		}
+		}*/
 	}
 	
 	@Override

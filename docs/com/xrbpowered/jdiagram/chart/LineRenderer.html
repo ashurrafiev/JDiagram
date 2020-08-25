@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>LineRenderer</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0" />
+<link rel="stylesheet" href="../../../../doc.css" />
+<script src="../../../../doc.js"></script>
+</head>
+<body class="bg">
+<button id="upBtn" title="Scroll to top" onclick="scrollUp()">&#129093;</button>
+<div class="body"><div class="page">
+<div class="nav">
+<a href="../../../../index.html">JDiagram API Reference</a>
+&#11208; 
+<a href="package-summary.html">com.xrbpowered.jdiagram.chart</a>&#11208; 
+LineRenderer
+</div>
+<h1><a class="toplink" href="LineRenderer.html">LineRenderer</a></h1><pre>public class <span class="name">LineRenderer</span>
+extends <a href="DataRenderer.html" title="com.xrbpowered.jdiagram.chart.DataRenderer">DataRenderer</a>
+</pre>
+<div class="infocard"><dl>
+<dt>Hierarchy:</dt><dd>
+<a class="extern" title="java.lang.Object">Object</a> &#11208;
+<a href="DataRenderer.html" title="com.xrbpowered.jdiagram.chart.DataRenderer">DataRenderer</a> &#11208;
+LineRenderer</dd>
+<dt>Known direct subclasses:</dt><dd><a href="StepRenderer.html" title="com.xrbpowered.jdiagram.chart.StepRenderer">StepRenderer</a></dd>
+</dl></div>
+<div class="comment"><p></div>
+<div class="summary">
+<h2>Summary</h2>
+<div class="summary-item">
+<h5>Constructors</h5>
+<table>
+<tr><td><code><span class="name"><a class="extern">LineRenderer</a></span> ()</code>
+<br/>Default constructor.</td></tr>
+</table>
+</div>
+<div class="summary-item">
+<h5>Instance Methods</h5>
+<table>
+<tr><td class="mods">
+<code>void</code></td>
+<td><code><span class="name"><a href="#addPoint-double-double-com.xrbpowered.jdiagram.data.Data.Row-">addPoint</a></span> (double x, double y, <a href="../data/Data.Row.html" title="com.xrbpowered.jdiagram.data.Data.Row">Data.Row</a> row)</code>
+</td></tr>
+<tr><td class="mods">
+<code>void</code></td>
+<td><code><span class="name"><a href="#finish-">finish</a></span> ()</code>
+</td></tr>
+<tr><td class="mods">
+<code>void</code></td>
+<td><code><span class="name"><a href="#start-java.io.PrintStream-java.lang.String-int-com.xrbpowered.jdiagram.data.Data-">start</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out, <a class="extern" title="java.lang.String">String</a> style, int rowCount, <a href="../data/Data.html" title="com.xrbpowered.jdiagram.data.Data">Data</a> data)</code>
+</td></tr>
+<tr class="inherited toggle" onclick="toggleExt(this)"><td colspan="2">Show all inherited methods (9 more)</td></tr>
+<tr class="inherited ext sep hide"><td class="mods">
+<code>boolean</code></td>
+<td><code><span class="name"><a class="extern">equals</a></span> (<a class="extern" title="java.lang.Object">Object</a>)</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>final native <a class="extern" title="java.lang.Class">Class</a>&lt;?&gt;</code></td>
+<td><code><span class="name"><a class="extern">getClass</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>native int</code></td>
+<td><code><span class="name"><a class="extern">hashCode</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>final native void</code></td>
+<td><code><span class="name"><a class="extern">notify</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>final native void</code></td>
+<td><code><span class="name"><a class="extern">notifyAll</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code><a class="extern" title="java.lang.String">String</a></code></td>
+<td><code><span class="name"><a class="extern">toString</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>final void</code></td>
+<td><code><span class="name"><a class="extern">wait</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>final native void</code></td>
+<td><code><span class="name"><a class="extern">wait</a></span> (long)</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>final void</code></td>
+<td><code><span class="name"><a class="extern">wait</a></span> (long, int)</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+</table>
+</div>
+</div>
+<div class="details">
+<div class="member">
+<h3><a class="alink" id="start-java.io.PrintStream-java.lang.String-int-com.xrbpowered.jdiagram.data.Data-" href="#start-java.io.PrintStream-java.lang.String-int-com.xrbpowered.jdiagram.data.Data-">start</a></h3>
+<pre><a class="extern" title="java.lang.Override">@Override</a>
+public void <span class="name">start</span> (
+	<a class="extern" title="java.io.PrintStream">PrintStream</a> out,
+	<a class="extern" title="java.lang.String">String</a> style,
+	int rowCount,
+	<a href="../data/Data.html" title="com.xrbpowered.jdiagram.data.Data">Data</a> data
+);</pre>
+<p class="overrides">Overrides <code><a href="DataRenderer.html#start-java.io.PrintStream-java.lang.String-int-com.xrbpowered.jdiagram.data.Data-" title="com.xrbpowered.jdiagram.chart.DataRenderer.start(java.io.PrintStream, java.lang.String, int, com.xrbpowered.jdiagram.data.Data)">DataRenderer.start(PrintStream, String, int, Data)</a></code>.</p>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="addPoint-double-double-com.xrbpowered.jdiagram.data.Data.Row-" href="#addPoint-double-double-com.xrbpowered.jdiagram.data.Data.Row-">addPoint</a></h3>
+<pre><a class="extern" title="java.lang.Override">@Override</a>
+public void <span class="name">addPoint</span> (
+	double x,
+	double y,
+	<a href="../data/Data.Row.html" title="com.xrbpowered.jdiagram.data.Data.Row">Data.Row</a> row
+);</pre>
+<p class="overrides">Implements <code><a href="DataRenderer.html#addPoint-double-double-com.xrbpowered.jdiagram.data.Data.Row-" title="com.xrbpowered.jdiagram.chart.DataRenderer.addPoint(double, double, com.xrbpowered.jdiagram.data.Data.Row)">DataRenderer.addPoint(double, double, Data.Row)</a></code>.</p>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="finish-" href="#finish-">finish</a></h3>
+<pre><a class="extern" title="java.lang.Override">@Override</a>
+public void <span class="name">finish</span> ();</pre>
+<p class="overrides">Implements <code><a href="DataRenderer.html#finish-" title="com.xrbpowered.jdiagram.chart.DataRenderer.finish()">DataRenderer.finish()</a></code>.</p>
+<div class="comment"><p></div>
+</div>
+</div>
+</div></div></body>
+</html>
