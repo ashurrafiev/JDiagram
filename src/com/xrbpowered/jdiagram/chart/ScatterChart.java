@@ -53,8 +53,8 @@ public class ScatterChart extends Chart {
 		}
 		
 		@Override
-		public String getLegendStyle() {
-			return style;
+		public void printLegendSwatch(PrintStream out, double x, double y, int w, int h) {
+			renderer.printLegendSwatch(out, x, y, w, h, style);
 		}
 	}
 
@@ -109,22 +109,6 @@ public class ScatterChart extends Chart {
 			}
 			r.finish();
 		}
-		/*for(Population pop : populations) {
-			StringBuilder path = new StringBuilder();
-			boolean first = true;
-			for(Data.Row row : pop.data.rows()) {
-				double x = calcx(row.getNum(pop.hdrx));
-				double y = calcy(row.getNum(pop.hdry));
-				if(first) {
-					path.append("M");
-					first = false;
-				}
-				else
-					path.append(" L");
-				path.append(String.format("%.1f,%.1f", x, y));
-			}
-			out.printf("<path d=\"%s\" style=\"%s\" />\n", path.toString(), pop.style);
-		}*/
 	}
 	
 	@Override

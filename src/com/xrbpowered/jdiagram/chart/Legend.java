@@ -7,11 +7,12 @@ public class Legend extends GridLayout {
 
 	public static interface LegendItem {
 		public String getLegendText();
-		public String getLegendStyle();
+		public void printLegendSwatch(PrintStream out, double x, double y, int w, int h);
 	}
 
 	public Anchor anchorX, anchorY;
 	public boolean inside = false;
+	public int swatchWidth = 30;
 	
 	public ArrayList<LegendItem> items = new ArrayList<>();
 	
@@ -20,6 +21,11 @@ public class Legend extends GridLayout {
 		posBottom(-35);
 	}
 
+	public Legend setSwatchWidth(int width) {
+		this.swatchWidth = width;
+		return this;
+	}
+	
 	public Legend posInside(Anchor anchorX, Anchor anchorY) {
 		this.anchorX = anchorX;
 		this.anchorY = anchorY;
@@ -63,8 +69,8 @@ public class Legend extends GridLayout {
 	@Override
 	public void printItem(PrintStream out, int index, double x, double y) {
 		LegendItem item = items.get(index);
-		out.printf("<line x1=\"%.1f\" y1=\"%.1f\" x2=\"%.1f\" y2=\"%.1f\" style=\"%s\" />\n", x, y+itemHeight/2, x+30, y+itemHeight/2, item.getLegendStyle());
-		out.printf("<text x=\"%.1f\" y=\"%.1f\">%s</text>\n", x+35, y+itemHeight/2+3, item.getLegendText());
+		item.printLegendSwatch(out, x, y, swatchWidth, itemHeight);
+		out.printf("<text x=\"%.1f\" y=\"%.1f\">%s</text>\n", x+swatchWidth+5, y+itemHeight/2+3, item.getLegendText());
 	}
 	
 }

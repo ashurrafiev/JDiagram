@@ -28,5 +28,10 @@ public class LineRenderer extends DataRenderer {
 	public void finish() {
 		out.printf("<path d=\"%s\" style=\"%s\" />\n", path.toString(), style);
 	}
+	
+	@Override
+	public void printLegendSwatch(PrintStream out, double x, double y, int w, int h, String style) {
+		printLineSwatch(out, x, y, w, h, style);
+	}
 
 }
