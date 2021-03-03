@@ -9,6 +9,8 @@ public class Page extends GridLayout {
 
 	public ArrayList<Chart> charts = new ArrayList<>();
 	
+	public String customDefs = null;
+	
 	public Page(int numCols) {
 		super(numCols);
 	}
@@ -73,6 +75,8 @@ public class Page extends GridLayout {
 		out.println("</style>");
 
 		out.println("<defs>");
+		if(customDefs!=null)
+			out.println(customDefs);
 		index = 0;
 		for(Chart chart : charts) {
 			chart.id = chartId(index);

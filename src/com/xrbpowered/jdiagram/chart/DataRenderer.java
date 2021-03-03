@@ -9,10 +9,19 @@ public abstract class DataRenderer {
 	protected PrintStream out;
 	protected String style;
 	
+	public double zerox = 0;
+	public double zeroy = 0;
+	
+	public void setZeroes(double x, double y) {
+		this.zerox = x;
+		this.zeroy = y;
+	}
+	
 	public void start(PrintStream out, String style, int rowCount, Data data) {
 		this.out = out;
 		this.style = style;
 	}
+	
 	public abstract void addPoint(double x, double y, Data.Row row);
 	public abstract void finish();
 	public abstract void printLegendSwatch(PrintStream out, double x, double y, int w, int h, String style);
@@ -22,6 +31,6 @@ public abstract class DataRenderer {
 	}
 	
 	public static void printBoxSwatch(PrintStream out, double x, double y, int w, int h, String style) {
-		out.printf("<rect x=\"%.1f\" y=\"%.1f\" width=\"%.1f\" height=\"%.1f\" style=\"%s\" />\n", x+w-h, y, h, h, style);
+		out.printf("<rect x=\"%.1f\" y=\"%.1f\" width=\"%d\" height=\"%d\" style=\"%s\" />\n", x+w-h, y, h, h, style);
 	}
 }

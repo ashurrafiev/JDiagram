@@ -4,7 +4,6 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.xrbpowered.jdiagram.chart.Legend.LegendItem;
 import com.xrbpowered.jdiagram.data.Data;
 
 /**
@@ -13,48 +12,21 @@ import com.xrbpowered.jdiagram.data.Data;
  */
 public class ScatterChart extends Chart {
 
-	public static class Population implements LegendItem {
+	public static class Population extends ChartPopulation {
 		public final Data data;
 		public final String hdrx;
 		public final String hdry;
 		
-		public String legend = null;
-		
-		public DataRenderer renderer = new LineRenderer();
-		public String style;
-		
 		public Population(Data data, String hdrx, String hdry, String style) {
+			super(new LineRenderer(), style);
 			this.data = data;
 			this.hdrx = hdrx;
 			this.hdry = hdry;
-			this.style = style;
-		}
-		
-		public Population setRenderer(DataRenderer renderer) {
-			this.renderer = renderer;
-			return this;
 		}
 
-		public Population addLegend(Legend legend) {
-			legend.items.add(this);
-			this.legend = hdry;
-			return this;
-		}
-
-		public Population addLegend(Legend legend, String name) {
-			legend.items.add(this);
-			this.legend = name;
-			return this;
-		}
-		
 		@Override
-		public String getLegendText() {
-			return legend;
-		}
-		
-		@Override
-		public void printLegendSwatch(PrintStream out, double x, double y, int w, int h) {
-			renderer.printLegendSwatch(out, x, y, w, h, style);
+		public ChartPopulation addLegend(Legend legend) {
+			return addLegend(legend, hdry);
 		}
 	}
 
@@ -63,18 +35,18 @@ public class ScatterChart extends Chart {
 
 	public ArrayList<Population> populations = new ArrayList<>();
 	
-	public void addPop(Population pop) {
-		populations.add(pop);
+	public <T extends ChartPopulation> void addPop(T pop) {
+		populations.add((Population) pop);
 	}
 
-	public void addPopLegend(Population pop) {
+	public <T extends ChartPopulation> void addPopLegend(T pop) {
 		pop.addLegend(legend);
-		populations.add(pop);
+		populations.add((Population) pop);
 	}
 
-	public void addPopLegend(String name, Population pop) {
+	public <T extends ChartPopulation> void addPopLegend(String name, T pop) {
 		pop.addLegend(legend, name);
-		populations.add(pop);
+		populations.add((Population) pop);
 	}
 
 	protected double calcx(double v) {
@@ -99,8 +71,11 @@ public class ScatterChart extends Chart {
 
 	@Override
 	protected void printData(PrintStream out) {
+		double zerox = calcx(axisx.zero());
+		double zeroy = calcy(axisy.zero());
 		for(Population pop : populations) {
 			DataRenderer r = pop.renderer;
+			r.setZeroes(zerox, zeroy);
 			r.start(out, pop.style, pop.data.count(), pop.data);
 			for(Data.Row row : pop.data.rows()) {
 				double x = calcx(row.getNum(pop.hdrx));
