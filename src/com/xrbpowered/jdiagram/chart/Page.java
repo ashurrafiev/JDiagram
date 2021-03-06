@@ -9,7 +9,7 @@ public class Page extends GridLayout {
 
 	public ArrayList<Chart> charts = new ArrayList<>();
 	
-	public String customDefs = null;
+	public String customDefs = "";
 	
 	public Page(int numCols) {
 		super(numCols);
@@ -60,7 +60,7 @@ public class Page extends GridLayout {
 	public void printPage(PrintStream out) {
 		if(itemWidth==0 || itemHeight==0)
 			autoItemSize();
-		out.printf("<svg width=\"%d\" height=\"%d\" xmlns=\"http://www.w3.org/2000/svg\">\n", getWidth(), getHeight());
+		out.printf("<svg width=\"%d\" height=\"%d\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n", getWidth(), getHeight());
 
 		int index;
 
@@ -75,7 +75,7 @@ public class Page extends GridLayout {
 		out.println("</style>");
 
 		out.println("<defs>");
-		if(customDefs!=null)
+		if(customDefs!=null && !customDefs.isEmpty())
 			out.println(customDefs);
 		index = 0;
 		for(Chart chart : charts) {
