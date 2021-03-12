@@ -5,12 +5,21 @@ import java.io.PrintStream;
 import com.xrbpowered.jdiagram.data.Data;
 import com.xrbpowered.jdiagram.data.Data.Row;
 
-public class MarkerRenderer extends DataRenderer {
+public class NoteRenderer extends DataRenderer {
 
-	public String markerRef;
+	public String noteHdr;
+	public double dx, dy;
+	public String anchor = "middle";
 	
-	public MarkerRenderer(String markerRef) {
-		this.markerRef = markerRef;
+	public NoteRenderer(String noteHdr) {
+		this.noteHdr = noteHdr;
+	}
+	
+	public NoteRenderer setAnchor(String anchor, double dx, double dy) {
+		this.dx = dx;
+		this.dy = dy;
+		this.anchor = anchor;
+		return this;
 	}
 	
 	@Override
@@ -21,7 +30,7 @@ public class MarkerRenderer extends DataRenderer {
 	
 	@Override
 	public void addPoint(double x, double y, Row row) {
-		out.printf("<use xlink:href=\"#%s\" x=\"%.1f\" y=\"%.1f\" />\n", markerRef, x, y);
+		out.printf("<text x=\"%.1f\" y=\"%.1f\" text-anchor=\"%s\">%s</text>\n", x+dx, y+dy, anchor, row.get(noteHdr));
 	}
 	
 	@Override
@@ -31,7 +40,6 @@ public class MarkerRenderer extends DataRenderer {
 
 	@Override
 	public void printLegendSwatch(PrintStream out, double x, double y, int w, int h, String style) {
-		out.printf("<use xlink:href=\"#%s\" x=\"%.1f\" y=\"%.1f\" style=\"%s\" />\n", markerRef, x+w-h/2, y+h/2, style);
+		throw new UnsupportedOperationException();
 	}
-
 }
