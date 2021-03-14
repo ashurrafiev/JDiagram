@@ -7,7 +7,7 @@ public class SetAxis extends Axis {
 	public Data data;
 	public String labelHdr = null;
 	
-	public double barHeightRatio = 0.8;
+	public double itemSizeRatio = 0.8;
 
 	public SetAxis(Data data, String labelHdr) {
 		this.data = data;
@@ -36,6 +36,10 @@ public class SetAxis extends Axis {
 	@Override
 	public double calc(double v) {
 		return v / data.count();
+	}
+	
+	public double calcTotalSizeX(double chartWidth, double totalItemsX) {
+		return chartWidth / data.count() / (totalItemsX>0 ?  totalItemsX/itemSizeRatio : 1);
 	}
 
 }

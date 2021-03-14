@@ -56,6 +56,13 @@ public class HSetChart extends Chart {
 		return axisy.calcy(this, v);
 	}
 
+	protected double totalItemsX() {
+		double s = 0;
+		for(Population pop : populations)
+			s += pop.renderer.itemSizeX();
+		return s;
+	}
+	
 	@Override
 	protected void printGrid(PrintStream out) {
 		if(gridLineStyle==null)
@@ -69,10 +76,12 @@ public class HSetChart extends Chart {
 	@Override
 	protected void printData(PrintStream out) {
 		double zeroy = axisy.zeroy(this);
+		double sizex = axisx.calcTotalSizeX(chartWidth, totalItemsX());
+		double dx = 0;
 		for(Population pop : populations) {
 			DataRenderer r = pop.renderer;
 			r.setZeroes(0, zeroy);
-			r.start(out, pop.style, axisx.data.count(), axisx.data);
+			dx = r.startHSet(out, pop.style, axisx.data.count(), axisx.data, dx, sizex*r.itemSizeX());
 			int i = 0;
 			for(Data.Row row : axisx.data.rows()) {
 				double x = calcx(i);
@@ -86,12 +95,12 @@ public class HSetChart extends Chart {
 	
 	@Override
 	protected void printAxes(PrintStream out) {
-		/*out.println("<g>");
+		out.println("<g>");
 		if(axisLineStyle!=null)
 			axisx.printAxisX(out, this, axisy.zeroy(this));
-		for(Iterator<Double> d=axisx.gridPoints(); d.hasNext();)
-			axisx.gridxNumber(out, this, d.next());
-		out.println("</g>");*/
+		// for(Iterator<Double> d=axisx.gridPoints(); d.hasNext();)
+		//	axisx.gridxNumber(out, this, d.next());
+		out.println("</g>");
 
 		out.println("<g>");
 		if(axisLineStyle!=null)
