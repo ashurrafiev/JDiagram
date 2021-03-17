@@ -44,6 +44,23 @@ ExpFormatter</dd>
 <code>final int</code></td>
 <td><code><span class="name"><a href="#base">base</a></span></code>
 <br/>Exponent base.</td></tr>
+<tr><td class="mods">
+<code>protected final <a class="extern" title="java.lang.String">String</a></code></td>
+<td><code><span class="name"><a href="#formatString">formatString</a></span></code>
+</td></tr>
+<tr><td class="mods">
+<code>protected final boolean</code></td>
+<td><code><span class="name"><a href="#showMantissa">showMantissa</a></span></code>
+</td></tr>
+</table>
+</div>
+<div class="summary-item">
+<h5>Constructors</h5>
+<table>
+<tr><td class="mods">
+<code>protected </code></td>
+<td><code><span class="name"><a href="#ExpFormatter-int-java.lang.String-java.lang.String-java.lang.String-">ExpFormatter</a></span> (int base, <a class="extern" title="java.lang.String">String</a> mantissaFmt, <a class="extern" title="java.lang.String">String</a> mulSign, <a class="extern" title="java.lang.String">String</a> baseExpFmt)</code>
+</td></tr>
 </table>
 </div>
 <div class="summary-item">
@@ -53,10 +70,18 @@ ExpFormatter</dd>
 <code><a class="extern" title="java.lang.String">String</a></code></td>
 <td><code><span class="name"><a href="#format-java.lang.Double-">format</a></span> (<a class="extern" title="java.lang.Double">Double</a> x)</code>
 <br/>Formats value x according to the formatter rules.</td></tr>
-<tr class="inherited toggle" onclick="toggleExt(this)"><td colspan="2">Show all inherited methods (9 more)</td></tr>
+<tr class="inherited toggle" onclick="toggleExt(this)"><td colspan="2">Show all inherited methods (11 more)</td></tr>
 <tr class="inherited ext sep hide"><td class="mods">
+<code>protected native <a class="extern" title="java.lang.Object">Object</a></code></td>
+<td><code><span class="name"><a class="extern">clone</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
 <code>boolean</code></td>
 <td><code><span class="name"><a class="extern">equals</a></span> (<a class="extern" title="java.lang.Object">Object</a>)</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>protected void</code></td>
+<td><code><span class="name"><a class="extern">finalize</a></span> ()</code>
 <br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
 <tr class="inherited ext hide"><td class="mods">
 <code>final native <a class="extern" title="java.lang.Class">Class</a>&lt;?&gt;</code></td>
@@ -122,9 +147,29 @@ ExpFormatter</dd>
 </div>
 <div class="details">
 <div class="member">
+<h3><a class="alink" id="formatString" href="#formatString">formatString</a></h3>
+<pre>protected final <a class="extern" title="java.lang.String">String</a> <span class="name">formatString</span>;</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="showMantissa" href="#showMantissa">showMantissa</a></h3>
+<pre>protected final boolean <span class="name">showMantissa</span>;</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
 <h3><a class="alink" id="base" href="#base">base</a></h3>
 <pre>public final int <span class="name">base</span>;</pre>
 <div class="comment"><p>Exponent base.</div>
+</div>
+<div class="member">
+<h3><a class="alink" id="ExpFormatter-int-java.lang.String-java.lang.String-java.lang.String-" href="#ExpFormatter-int-java.lang.String-java.lang.String-java.lang.String-">ExpFormatter</a></h3>
+<pre>protected <span class="name">ExpFormatter</span> (
+	int base,
+	<a class="extern" title="java.lang.String">String</a> mantissaFmt,
+	<a class="extern" title="java.lang.String">String</a> mulSign,
+	<a class="extern" title="java.lang.String">String</a> baseExpFmt
+);</pre>
+<div class="comment"><p></div>
 </div>
 <div class="member">
 <h3><a class="alink" id="format-java.lang.Double-" href="#format-java.lang.Double-">format</a></h3>

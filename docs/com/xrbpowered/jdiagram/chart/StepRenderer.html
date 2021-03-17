@@ -30,6 +30,35 @@ StepRenderer</dd>
 <div class="summary">
 <h2>Summary</h2>
 <div class="summary-item">
+<h5>Instance Fields</h5>
+<table>
+<tr class="inherited"><td class="mods">
+<code>protected boolean</code></td>
+<td><code><span class="name"><a href="LineRenderer.html#first">first</a></span></code>
+<br/>Inherited from <code><a href="LineRenderer.html" title="com.xrbpowered.jdiagram.chart.LineRenderer">LineRenderer</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>protected <a class="extern" title="java.io.PrintStream">PrintStream</a></code></td>
+<td><code><span class="name"><a href="DataRenderer.html#out">out</a></span></code>
+<br/>Inherited from <code><a href="DataRenderer.html" title="com.xrbpowered.jdiagram.chart.DataRenderer">DataRenderer</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>protected <a class="extern" title="java.lang.StringBuilder">StringBuilder</a></code></td>
+<td><code><span class="name"><a href="LineRenderer.html#path">path</a></span></code>
+<br/>Inherited from <code><a href="LineRenderer.html" title="com.xrbpowered.jdiagram.chart.LineRenderer">LineRenderer</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>protected <a class="extern" title="java.lang.String">String</a></code></td>
+<td><code><span class="name"><a href="DataRenderer.html#style">style</a></span></code>
+<br/>Inherited from <code><a href="DataRenderer.html" title="com.xrbpowered.jdiagram.chart.DataRenderer">DataRenderer</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>double</code></td>
+<td><code><span class="name"><a href="DataRenderer.html#zerox">zerox</a></span></code>
+<br/>Inherited from <code><a href="DataRenderer.html" title="com.xrbpowered.jdiagram.chart.DataRenderer">DataRenderer</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>double</code></td>
+<td><code><span class="name"><a href="DataRenderer.html#zeroy">zeroy</a></span></code>
+<br/>Inherited from <code><a href="DataRenderer.html" title="com.xrbpowered.jdiagram.chart.DataRenderer">DataRenderer</a></code>.</td></tr>
+</table>
+</div>
+<div class="summary-item">
 <h5>Constructors</h5>
 <table>
 <tr><td><code><span class="name"><a class="extern">StepRenderer</a></span> ()</code>
@@ -48,17 +77,45 @@ StepRenderer</dd>
 <td><code><span class="name"><a href="LineRenderer.html#finish-">finish</a></span> ()</code>
 <br/>Inherited from <code><a href="LineRenderer.html" title="com.xrbpowered.jdiagram.chart.LineRenderer">LineRenderer</a></code>.</td></tr>
 <tr class="inherited"><td class="mods">
+<code>double</code></td>
+<td><code><span class="name"><a href="DataRenderer.html#itemSizeX-">itemSizeX</a></span> ()</code>
+<br/>Inherited from <code><a href="DataRenderer.html" title="com.xrbpowered.jdiagram.chart.DataRenderer">DataRenderer</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>double</code></td>
+<td><code><span class="name"><a href="DataRenderer.html#itemSizeY-">itemSizeY</a></span> ()</code>
+<br/>Inherited from <code><a href="DataRenderer.html" title="com.xrbpowered.jdiagram.chart.DataRenderer">DataRenderer</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
 <code>void</code></td>
 <td><code><span class="name"><a href="LineRenderer.html#printLegendSwatch-java.io.PrintStream-double-double-int-int-java.lang.String-">printLegendSwatch</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out, double x, double y, int w, int h, <a class="extern" title="java.lang.String">String</a> style)</code>
 <br/>Inherited from <code><a href="LineRenderer.html" title="com.xrbpowered.jdiagram.chart.LineRenderer">LineRenderer</a></code>.</td></tr>
 <tr class="inherited"><td class="mods">
 <code>void</code></td>
+<td><code><span class="name"><a href="DataRenderer.html#setZeroes-double-double-">setZeroes</a></span> (double x, double y)</code>
+<br/>Inherited from <code><a href="DataRenderer.html" title="com.xrbpowered.jdiagram.chart.DataRenderer">DataRenderer</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>void</code></td>
 <td><code><span class="name"><a href="LineRenderer.html#start-java.io.PrintStream-java.lang.String-int-com.xrbpowered.jdiagram.data.Data-">start</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out, <a class="extern" title="java.lang.String">String</a> style, int rowCount, <a href="../data/Data.html" title="com.xrbpowered.jdiagram.data.Data">Data</a> data)</code>
 <br/>Inherited from <code><a href="LineRenderer.html" title="com.xrbpowered.jdiagram.chart.LineRenderer">LineRenderer</a></code>.</td></tr>
-<tr class="inherited toggle" onclick="toggleExt(this)"><td colspan="2">Show all inherited methods (9 more)</td></tr>
+<tr class="inherited"><td class="mods">
+<code>double</code></td>
+<td><code><span class="name"><a href="DataRenderer.html#startHSet-java.io.PrintStream-java.lang.String-int-com.xrbpowered.jdiagram.data.Data-double-double-">startHSet</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out, <a class="extern" title="java.lang.String">String</a> style, int rowCount, <a href="../data/Data.html" title="com.xrbpowered.jdiagram.data.Data">Data</a> data, double dx, double sizex)</code>
+<br/>Inherited from <code><a href="DataRenderer.html" title="com.xrbpowered.jdiagram.chart.DataRenderer">DataRenderer</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>double</code></td>
+<td><code><span class="name"><a href="DataRenderer.html#startVSet-java.io.PrintStream-java.lang.String-int-com.xrbpowered.jdiagram.data.Data-double-double-">startVSet</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out, <a class="extern" title="java.lang.String">String</a> style, int rowCount, <a href="../data/Data.html" title="com.xrbpowered.jdiagram.data.Data">Data</a> data, double dy, double sizey)</code>
+<br/>Inherited from <code><a href="DataRenderer.html" title="com.xrbpowered.jdiagram.chart.DataRenderer">DataRenderer</a></code>.</td></tr>
+<tr class="inherited toggle" onclick="toggleExt(this)"><td colspan="2">Show all inherited methods (11 more)</td></tr>
 <tr class="inherited ext sep hide"><td class="mods">
+<code>protected native <a class="extern" title="java.lang.Object">Object</a></code></td>
+<td><code><span class="name"><a class="extern">clone</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
 <code>boolean</code></td>
 <td><code><span class="name"><a class="extern">equals</a></span> (<a class="extern" title="java.lang.Object">Object</a>)</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>protected void</code></td>
+<td><code><span class="name"><a class="extern">finalize</a></span> ()</code>
 <br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
 <tr class="inherited ext hide"><td class="mods">
 <code>final native <a class="extern" title="java.lang.Class">Class</a>&lt;?&gt;</code></td>

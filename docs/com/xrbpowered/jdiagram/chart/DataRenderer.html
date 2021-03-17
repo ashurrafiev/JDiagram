@@ -22,11 +22,32 @@ DataRenderer
 <dt>Hierarchy:</dt><dd>
 <a class="extern" title="java.lang.Object">Object</a> &#11208;
 DataRenderer</dd>
-<dt>Known direct subclasses:</dt><dd><a href="LineRenderer.html" title="com.xrbpowered.jdiagram.chart.LineRenderer">LineRenderer</a></dd>
+<dt>Known direct subclasses:</dt><dd><a href="LineRenderer.html" title="com.xrbpowered.jdiagram.chart.LineRenderer">LineRenderer</a>, <a href="MarkerRenderer.html" title="com.xrbpowered.jdiagram.chart.MarkerRenderer">MarkerRenderer</a>, <a href="NoteRenderer.html" title="com.xrbpowered.jdiagram.chart.NoteRenderer">NoteRenderer</a>, <a href="VBarRenderer.html" title="com.xrbpowered.jdiagram.chart.VBarRenderer">VBarRenderer</a></dd>
 </dl></div>
 <div class="comment"><p></div>
 <div class="summary">
 <h2>Summary</h2>
+<div class="summary-item">
+<h5>Instance Fields</h5>
+<table>
+<tr><td class="mods">
+<code>protected <a class="extern" title="java.io.PrintStream">PrintStream</a></code></td>
+<td><code><span class="name"><a href="#out">out</a></span></code>
+</td></tr>
+<tr><td class="mods">
+<code>protected <a class="extern" title="java.lang.String">String</a></code></td>
+<td><code><span class="name"><a href="#style">style</a></span></code>
+</td></tr>
+<tr><td class="mods">
+<code>double</code></td>
+<td><code><span class="name"><a href="#zerox">zerox</a></span></code>
+</td></tr>
+<tr><td class="mods">
+<code>double</code></td>
+<td><code><span class="name"><a href="#zeroy">zeroy</a></span></code>
+</td></tr>
+</table>
+</div>
 <div class="summary-item">
 <h5>Constructors</h5>
 <table>
@@ -55,13 +76,41 @@ DataRenderer</dd>
 <h5>Instance Methods</h5>
 <table>
 <tr><td class="mods">
+<code>double</code></td>
+<td><code><span class="name"><a href="#itemSizeX-">itemSizeX</a></span> ()</code>
+</td></tr>
+<tr><td class="mods">
+<code>double</code></td>
+<td><code><span class="name"><a href="#itemSizeY-">itemSizeY</a></span> ()</code>
+</td></tr>
+<tr><td class="mods">
+<code>void</code></td>
+<td><code><span class="name"><a href="#setZeroes-double-double-">setZeroes</a></span> (double x, double y)</code>
+</td></tr>
+<tr><td class="mods">
 <code>void</code></td>
 <td><code><span class="name"><a href="#start-java.io.PrintStream-java.lang.String-int-com.xrbpowered.jdiagram.data.Data-">start</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out, <a class="extern" title="java.lang.String">String</a> style, int rowCount, <a href="../data/Data.html" title="com.xrbpowered.jdiagram.data.Data">Data</a> data)</code>
 </td></tr>
-<tr class="inherited toggle" onclick="toggleExt(this)"><td colspan="2">Show all inherited methods (9 more)</td></tr>
+<tr><td class="mods">
+<code>double</code></td>
+<td><code><span class="name"><a href="#startHSet-java.io.PrintStream-java.lang.String-int-com.xrbpowered.jdiagram.data.Data-double-double-">startHSet</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out, <a class="extern" title="java.lang.String">String</a> style, int rowCount, <a href="../data/Data.html" title="com.xrbpowered.jdiagram.data.Data">Data</a> data, double dx, double sizex)</code>
+</td></tr>
+<tr><td class="mods">
+<code>double</code></td>
+<td><code><span class="name"><a href="#startVSet-java.io.PrintStream-java.lang.String-int-com.xrbpowered.jdiagram.data.Data-double-double-">startVSet</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out, <a class="extern" title="java.lang.String">String</a> style, int rowCount, <a href="../data/Data.html" title="com.xrbpowered.jdiagram.data.Data">Data</a> data, double dy, double sizey)</code>
+</td></tr>
+<tr class="inherited toggle" onclick="toggleExt(this)"><td colspan="2">Show all inherited methods (11 more)</td></tr>
 <tr class="inherited ext sep hide"><td class="mods">
+<code>protected native <a class="extern" title="java.lang.Object">Object</a></code></td>
+<td><code><span class="name"><a class="extern">clone</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
 <code>boolean</code></td>
 <td><code><span class="name"><a class="extern">equals</a></span> (<a class="extern" title="java.lang.Object">Object</a>)</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>protected void</code></td>
+<td><code><span class="name"><a class="extern">finalize</a></span> ()</code>
 <br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
 <tr class="inherited ext hide"><td class="mods">
 <code>final native <a class="extern" title="java.lang.Class">Class</a>&lt;?&gt;</code></td>
@@ -113,12 +162,64 @@ DataRenderer</dd>
 </div>
 <div class="details">
 <div class="member">
+<h3><a class="alink" id="out" href="#out">out</a></h3>
+<pre>protected <a class="extern" title="java.io.PrintStream">PrintStream</a> <span class="name">out</span>;</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="style" href="#style">style</a></h3>
+<pre>protected <a class="extern" title="java.lang.String">String</a> <span class="name">style</span>;</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="zerox" href="#zerox">zerox</a></h3>
+<pre>public double <span class="name">zerox</span>;</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="zeroy" href="#zeroy">zeroy</a></h3>
+<pre>public double <span class="name">zeroy</span>;</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="setZeroes-double-double-" href="#setZeroes-double-double-">setZeroes</a></h3>
+<pre>public void <span class="name">setZeroes</span> (
+	double x,
+	double y
+);</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
 <h3><a class="alink" id="start-java.io.PrintStream-java.lang.String-int-com.xrbpowered.jdiagram.data.Data-" href="#start-java.io.PrintStream-java.lang.String-int-com.xrbpowered.jdiagram.data.Data-">start</a></h3>
 <pre>public void <span class="name">start</span> (
 	<a class="extern" title="java.io.PrintStream">PrintStream</a> out,
 	<a class="extern" title="java.lang.String">String</a> style,
 	int rowCount,
 	<a href="../data/Data.html" title="com.xrbpowered.jdiagram.data.Data">Data</a> data
+);</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="startHSet-java.io.PrintStream-java.lang.String-int-com.xrbpowered.jdiagram.data.Data-double-double-" href="#startHSet-java.io.PrintStream-java.lang.String-int-com.xrbpowered.jdiagram.data.Data-double-double-">startHSet</a></h3>
+<pre>public double <span class="name">startHSet</span> (
+	<a class="extern" title="java.io.PrintStream">PrintStream</a> out,
+	<a class="extern" title="java.lang.String">String</a> style,
+	int rowCount,
+	<a href="../data/Data.html" title="com.xrbpowered.jdiagram.data.Data">Data</a> data,
+	double dx,
+	double sizex
+);</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="startVSet-java.io.PrintStream-java.lang.String-int-com.xrbpowered.jdiagram.data.Data-double-double-" href="#startVSet-java.io.PrintStream-java.lang.String-int-com.xrbpowered.jdiagram.data.Data-double-double-">startVSet</a></h3>
+<pre>public double <span class="name">startVSet</span> (
+	<a class="extern" title="java.io.PrintStream">PrintStream</a> out,
+	<a class="extern" title="java.lang.String">String</a> style,
+	int rowCount,
+	<a href="../data/Data.html" title="com.xrbpowered.jdiagram.data.Data">Data</a> data,
+	double dy,
+	double sizey
 );</pre>
 <div class="comment"><p></div>
 </div>
@@ -146,6 +247,16 @@ DataRenderer</dd>
 	int h,
 	<a class="extern" title="java.lang.String">String</a> style
 );</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="itemSizeX-" href="#itemSizeX-">itemSizeX</a></h3>
+<pre>public double <span class="name">itemSizeX</span> ();</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="itemSizeY-" href="#itemSizeY-">itemSizeY</a></h3>
+<pre>public double <span class="name">itemSizeY</span> ();</pre>
 <div class="comment"><p></div>
 </div>
 <div class="member">

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HSetChart</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0" />
+<link rel="stylesheet" href="../../../../doc.css" />
+<script src="../../../../doc.js"></script>
+</head>
+<body class="bg">
+<button id="upBtn" title="Scroll to top" onclick="scrollUp()">&#129093;</button>
+<div class="body"><div class="page">
+<div class="nav">
+<a href="../../../../index.html">JDiagram API Reference</a>
+&#11208; 
+<a href="package-summary.html">com.xrbpowered.jdiagram.chart</a>&#11208; 
+HSetChart
+</div>
+<h1><a class="toplink" href="HSetChart.html">HSetChart</a></h1><pre>public class <span class="name">HSetChart</span>
+extends <a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a>
+</pre>
+<div class="infocard"><dl>
+<dt>Hierarchy:</dt><dd>
+<a class="extern" title="java.lang.Object">Object</a> &#11208;
+<a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a> &#11208;
+HSetChart</dd>
+</dl></div>
+<div class="comment"><p></div>
+<div class="summary">
+<h2>Summary</h2>
+<div class="summary-item">
+<h5>Nested Classes</h5>
+<table>
+<tr><td class="mods"><code>static  class</code></td><td>
+<code><span class="name"><a href="HSetChart.Population.html" title="com.xrbpowered.jdiagram.chart.HSetChart.Population">HSetChart.Population</a></span></code>
+</td></tr>
+</table>
+</div>
+<div class="summary-item">
+<h5>Instance Fields</h5>
+<table>
+<tr class="inherited"><td class="mods">
+<code><a class="extern" title="java.lang.String">String</a></code></td>
+<td><code><span class="name"><a href="Chart.html#axisLineStyle">axisLineStyle</a></span></code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr><td class="mods">
+<code><a href="SetAxis.html" title="com.xrbpowered.jdiagram.chart.SetAxis">SetAxis</a></code></td>
+<td><code><span class="name"><a href="#axisx">axisx</a></span></code>
+</td></tr>
+<tr><td class="mods">
+<code><a href="ValueAxis.html" title="com.xrbpowered.jdiagram.chart.ValueAxis">ValueAxis</a></code></td>
+<td><code><span class="name"><a href="#axisy">axisy</a></span></code>
+</td></tr>
+<tr class="inherited"><td class="mods">
+<code><a class="extern" title="java.lang.String">String</a></code></td>
+<td><code><span class="name"><a href="Chart.html#chartAreaStyle">chartAreaStyle</a></span></code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>int</code></td>
+<td><code><span class="name"><a href="Chart.html#chartHeight">chartHeight</a></span></code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>int</code></td>
+<td><code><span class="name"><a href="Chart.html#chartWidth">chartWidth</a></span></code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>boolean</code></td>
+<td><code><span class="name"><a href="Chart.html#clipChart">clipChart</a></span></code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code><a class="extern" title="java.lang.String">String</a></code></td>
+<td><code><span class="name"><a href="Chart.html#frameStyle">frameStyle</a></span></code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code><a class="extern" title="java.lang.String">String</a></code></td>
+<td><code><span class="name"><a href="Chart.html#gridLineStyle">gridLineStyle</a></span></code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code><a class="extern" title="java.lang.String">String</a></code></td>
+<td><code><span class="name"><a href="Chart.html#id">id</a></span></code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code><a href="Legend.html" title="com.xrbpowered.jdiagram.chart.Legend">Legend</a></code></td>
+<td><code><span class="name"><a href="Chart.html#legend">legend</a></span></code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>int</code></td>
+<td><code><span class="name"><a href="Chart.html#marginBottom">marginBottom</a></span></code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>int</code></td>
+<td><code><span class="name"><a href="Chart.html#marginLeft">marginLeft</a></span></code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>int</code></td>
+<td><code><span class="name"><a href="Chart.html#marginRight">marginRight</a></span></code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>int</code></td>
+<td><code><span class="name"><a href="Chart.html#marginTop">marginTop</a></span></code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr><td class="mods">
+<code><a class="extern" title="java.util.ArrayList">ArrayList</a>&lt;<a href="HSetChart.Population.html" title="com.xrbpowered.jdiagram.chart.HSetChart.Population">HSetChart.Population</a>&gt;</code></td>
+<td><code><span class="name"><a href="#populations">populations</a></span></code>
+</td></tr>
+<tr class="inherited"><td class="mods">
+<code><a class="extern" title="java.lang.String">String</a></code></td>
+<td><code><span class="name"><a href="Chart.html#title">title</a></span></code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code><a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a></code></td>
+<td><code><span class="name"><a href="Chart.html#titleAnchorX">titleAnchorX</a></span></code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code><a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a></code></td>
+<td><code><span class="name"><a href="Chart.html#titleAnchorY">titleAnchorY</a></span></code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code><a class="extern" title="java.lang.String">String</a></code></td>
+<td><code><span class="name"><a href="Chart.html#titleStyle">titleStyle</a></span></code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+</table>
+</div>
+<div class="summary-item">
+<h5>Constructors</h5>
+<table>
+<tr><td><code><span class="name"><a href="#HSetChart-com.xrbpowered.jdiagram.data.Data-java.lang.String-">HSetChart</a></span> (<a href="../data/Data.html" title="com.xrbpowered.jdiagram.data.Data">Data</a> data, <a class="extern" title="java.lang.String">String</a> labelHdr)</code>
+</td></tr>
+<tr><td><code><span class="name"><a href="#HSetChart-com.xrbpowered.jdiagram.data.Data-">HSetChart</a></span> (<a href="../data/Data.html" title="com.xrbpowered.jdiagram.data.Data">Data</a> data)</code>
+</td></tr>
+</table>
+</div>
+<div class="summary-item">
+<h5>Instance Methods</h5>
+<table>
+<tr><td class="mods">
+<code>&lt;T extends <a href="ChartPopulation.html" title="com.xrbpowered.jdiagram.chart.ChartPopulation">ChartPopulation</a>&gt;void</code></td>
+<td><code><span class="name"><a href="#addPop-com.xrbpowered.jdiagram.chart.ChartPopulation-">addPop</a></span> (T pop)</code>
+</td></tr>
+<tr><td class="mods">
+<code>&lt;T extends <a href="ChartPopulation.html" title="com.xrbpowered.jdiagram.chart.ChartPopulation">ChartPopulation</a>&gt;void</code></td>
+<td><code><span class="name"><a href="#addPopLegend-com.xrbpowered.jdiagram.chart.ChartPopulation-">addPopLegend</a></span> (T pop)</code>
+</td></tr>
+<tr><td class="mods">
+<code>&lt;T extends <a href="ChartPopulation.html" title="com.xrbpowered.jdiagram.chart.ChartPopulation">ChartPopulation</a>&gt;void</code></td>
+<td><code><span class="name"><a href="#addPopLegend-java.lang.String-com.xrbpowered.jdiagram.chart.ChartPopulation-">addPopLegend</a></span> (<a class="extern" title="java.lang.String">String</a> name, T pop)</code>
+</td></tr>
+<tr class="inherited"><td class="mods">
+<code>protected double</code></td>
+<td><code><span class="name"><a href="Chart.html#calcLeft-com.xrbpowered.jdiagram.chart.Anchor-double-boolean-">calcLeft</a></span> (<a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> a, double width, boolean inside)</code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>protected double</code></td>
+<td><code><span class="name"><a href="Chart.html#calcTop-com.xrbpowered.jdiagram.chart.Anchor-double-boolean-">calcTop</a></span> (<a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> a, double height, boolean inside)</code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>protected double</code></td>
+<td><code><span class="name"><a href="Chart.html#calcx-com.xrbpowered.jdiagram.chart.Anchor-">calcx</a></span> (<a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> a)</code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>protected double</code></td>
+<td><code><span class="name"><a href="Chart.html#calcx-com.xrbpowered.jdiagram.chart.Anchor-double-">calcx</a></span> (<a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> a, double mid)</code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr><td class="mods">
+<code>protected double</code></td>
+<td><code><span class="name"><a href="#calcx-int-">calcx</a></span> (int v)</code>
+</td></tr>
+<tr class="inherited"><td class="mods">
+<code>protected double</code></td>
+<td><code><span class="name"><a href="Chart.html#calcy-com.xrbpowered.jdiagram.chart.Anchor-">calcy</a></span> (<a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> a)</code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>protected double</code></td>
+<td><code><span class="name"><a href="Chart.html#calcy-com.xrbpowered.jdiagram.chart.Anchor-double-">calcy</a></span> (<a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> a, double mid)</code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr><td class="mods">
+<code>protected double</code></td>
+<td><code><span class="name"><a href="#calcy-double-">calcy</a></span> (double v)</code>
+</td></tr>
+<tr class="inherited"><td class="mods">
+<code>int</code></td>
+<td><code><span class="name"><a href="Chart.html#getHeight-">getHeight</a></span> ()</code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>int</code></td>
+<td><code><span class="name"><a href="Chart.html#getWidth-">getWidth</a></span> ()</code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr><td class="mods">
+<code>protected void</code></td>
+<td><code><span class="name"><a href="#printAxes-java.io.PrintStream-">printAxes</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out)</code>
+</td></tr>
+<tr class="inherited"><td class="mods">
+<code>void</code></td>
+<td><code><span class="name"><a href="Chart.html#printChart-java.io.PrintStream-">printChart</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out)</code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr><td class="mods">
+<code>protected void</code></td>
+<td><code><span class="name"><a href="#printData-java.io.PrintStream-">printData</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out)</code>
+</td></tr>
+<tr class="inherited"><td class="mods">
+<code>protected void</code></td>
+<td><code><span class="name"><a href="Chart.html#printDefs-java.io.PrintStream-">printDefs</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out)</code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr><td class="mods">
+<code>protected void</code></td>
+<td><code><span class="name"><a href="#printGrid-java.io.PrintStream-">printGrid</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out)</code>
+</td></tr>
+<tr class="inherited"><td class="mods">
+<code>void</code></td>
+<td><code><span class="name"><a href="Chart.html#printPage-java.io.PrintStream-">printPage</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out)</code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code>protected void</code></td>
+<td><code><span class="name"><a href="Chart.html#printStyles-java.io.PrintStream-">printStyles</a></span> (<a class="extern" title="java.io.PrintStream">PrintStream</a> out)</code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code></td>
+<td><code><span class="name"><a href="Chart.html#setMargins-int-int-int-int-">setMargins</a></span> (int left, int right, int top, int bottom)</code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code></td>
+<td><code><span class="name"><a href="Chart.html#setSize-int-int-">setSize</a></span> (int w, int h)</code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code></td>
+<td><code><span class="name"><a href="Chart.html#setTitle-java.lang.String-">setTitle</a></span> (<a class="extern" title="java.lang.String">String</a> title)</code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr class="inherited"><td class="mods">
+<code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code></td>
+<td><code><span class="name"><a href="Chart.html#setTitle-java.lang.String-com.xrbpowered.jdiagram.chart.Anchor-com.xrbpowered.jdiagram.chart.Anchor-">setTitle</a></span> (<a class="extern" title="java.lang.String">String</a> title, <a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> anchorX, <a href="Anchor.html" title="com.xrbpowered.jdiagram.chart.Anchor">Anchor</a> anchorY)</code>
+<br/>Inherited from <code><a href="Chart.html" title="com.xrbpowered.jdiagram.chart.Chart">Chart</a></code>.</td></tr>
+<tr><td class="mods">
+<code>protected double</code></td>
+<td><code><span class="name"><a href="#totalItemsX-">totalItemsX</a></span> ()</code>
+</td></tr>
+<tr class="inherited toggle" onclick="toggleExt(this)"><td colspan="2">Show all inherited methods (11 more)</td></tr>
+<tr class="inherited ext sep hide"><td class="mods">
+<code>protected native <a class="extern" title="java.lang.Object">Object</a></code></td>
+<td><code><span class="name"><a class="extern">clone</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>boolean</code></td>
+<td><code><span class="name"><a class="extern">equals</a></span> (<a class="extern" title="java.lang.Object">Object</a>)</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>protected void</code></td>
+<td><code><span class="name"><a class="extern">finalize</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>final native <a class="extern" title="java.lang.Class">Class</a>&lt;?&gt;</code></td>
+<td><code><span class="name"><a class="extern">getClass</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>native int</code></td>
+<td><code><span class="name"><a class="extern">hashCode</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>final native void</code></td>
+<td><code><span class="name"><a class="extern">notify</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>final native void</code></td>
+<td><code><span class="name"><a class="extern">notifyAll</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code><a class="extern" title="java.lang.String">String</a></code></td>
+<td><code><span class="name"><a class="extern">toString</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>final void</code></td>
+<td><code><span class="name"><a class="extern">wait</a></span> ()</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>final native void</code></td>
+<td><code><span class="name"><a class="extern">wait</a></span> (long)</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+<tr class="inherited ext hide"><td class="mods">
+<code>final void</code></td>
+<td><code><span class="name"><a class="extern">wait</a></span> (long, int)</code>
+<br/>Inherited from <code><a class="extern" title="java.lang.Object">Object</a></code>.</td></tr>
+</table>
+</div>
+</div>
+<div class="details">
+<div class="member">
+<h3><a class="alink" id="axisx" href="#axisx">axisx</a></h3>
+<pre>public <a href="SetAxis.html" title="com.xrbpowered.jdiagram.chart.SetAxis">SetAxis</a> <span class="name">axisx</span>;</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="axisy" href="#axisy">axisy</a></h3>
+<pre>public <a href="ValueAxis.html" title="com.xrbpowered.jdiagram.chart.ValueAxis">ValueAxis</a> <span class="name">axisy</span>;</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="populations" href="#populations">populations</a></h3>
+<pre>public <a class="extern" title="java.util.ArrayList">ArrayList</a>&lt;<a href="HSetChart.Population.html" title="com.xrbpowered.jdiagram.chart.HSetChart.Population">HSetChart.Population</a>&gt; <span class="name">populations</span>;</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="HSetChart-com.xrbpowered.jdiagram.data.Data-java.lang.String-" href="#HSetChart-com.xrbpowered.jdiagram.data.Data-java.lang.String-">HSetChart</a></h3>
+<pre>public <span class="name">HSetChart</span> (
+	<a href="../data/Data.html" title="com.xrbpowered.jdiagram.data.Data">Data</a> data,
+	<a class="extern" title="java.lang.String">String</a> labelHdr
+);</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="HSetChart-com.xrbpowered.jdiagram.data.Data-" href="#HSetChart-com.xrbpowered.jdiagram.data.Data-">HSetChart</a></h3>
+<pre>public <span class="name">HSetChart</span> (
+	<a href="../data/Data.html" title="com.xrbpowered.jdiagram.data.Data">Data</a> data
+);</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="addPop-com.xrbpowered.jdiagram.chart.ChartPopulation-" href="#addPop-com.xrbpowered.jdiagram.chart.ChartPopulation-">addPop</a></h3>
+<pre>public &lt;T extends <a href="ChartPopulation.html" title="com.xrbpowered.jdiagram.chart.ChartPopulation">ChartPopulation</a>&gt;void <span class="name">addPop</span> (
+	T pop
+);</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="addPopLegend-com.xrbpowered.jdiagram.chart.ChartPopulation-" href="#addPopLegend-com.xrbpowered.jdiagram.chart.ChartPopulation-">addPopLegend</a></h3>
+<pre>public &lt;T extends <a href="ChartPopulation.html" title="com.xrbpowered.jdiagram.chart.ChartPopulation">ChartPopulation</a>&gt;void <span class="name">addPopLegend</span> (
+	T pop
+);</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="addPopLegend-java.lang.String-com.xrbpowered.jdiagram.chart.ChartPopulation-" href="#addPopLegend-java.lang.String-com.xrbpowered.jdiagram.chart.ChartPopulation-">addPopLegend</a></h3>
+<pre>public &lt;T extends <a href="ChartPopulation.html" title="com.xrbpowered.jdiagram.chart.ChartPopulation">ChartPopulation</a>&gt;void <span class="name">addPopLegend</span> (
+	<a class="extern" title="java.lang.String">String</a> name,
+	T pop
+);</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="calcx-int-" href="#calcx-int-">calcx</a></h3>
+<pre>protected double <span class="name">calcx</span> (
+	int v
+);</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="calcy-double-" href="#calcy-double-">calcy</a></h3>
+<pre>protected double <span class="name">calcy</span> (
+	double v
+);</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="totalItemsX-" href="#totalItemsX-">totalItemsX</a></h3>
+<pre>protected double <span class="name">totalItemsX</span> ();</pre>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="printGrid-java.io.PrintStream-" href="#printGrid-java.io.PrintStream-">printGrid</a></h3>
+<pre><a class="extern" title="java.lang.Override">@Override</a>
+protected void <span class="name">printGrid</span> (
+	<a class="extern" title="java.io.PrintStream">PrintStream</a> out
+);</pre>
+<p class="overrides">Overrides <code><a href="Chart.html#printGrid-java.io.PrintStream-" title="com.xrbpowered.jdiagram.chart.Chart.printGrid(java.io.PrintStream)">Chart.printGrid(PrintStream)</a></code>.</p>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="printData-java.io.PrintStream-" href="#printData-java.io.PrintStream-">printData</a></h3>
+<pre><a class="extern" title="java.lang.Override">@Override</a>
+protected void <span class="name">printData</span> (
+	<a class="extern" title="java.io.PrintStream">PrintStream</a> out
+);</pre>
+<p class="overrides">Overrides <code><a href="Chart.html#printData-java.io.PrintStream-" title="com.xrbpowered.jdiagram.chart.Chart.printData(java.io.PrintStream)">Chart.printData(PrintStream)</a></code>.</p>
+<div class="comment"><p></div>
+</div>
+<div class="member">
+<h3><a class="alink" id="printAxes-java.io.PrintStream-" href="#printAxes-java.io.PrintStream-">printAxes</a></h3>
+<pre><a class="extern" title="java.lang.Override">@Override</a>
+protected void <span class="name">printAxes</span> (
+	<a class="extern" title="java.io.PrintStream">PrintStream</a> out
+);</pre>
+<p class="overrides">Overrides <code><a href="Chart.html#printAxes-java.io.PrintStream-" title="com.xrbpowered.jdiagram.chart.Chart.printAxes(java.io.PrintStream)">Chart.printAxes(PrintStream)</a></code>.</p>
+<div class="comment"><p></div>
+</div>
+</div>
+</div></div></body>
+</html>
