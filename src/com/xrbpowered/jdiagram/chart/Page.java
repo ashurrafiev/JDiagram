@@ -60,7 +60,7 @@ public class Page extends GridLayout {
 	public void printPage(PrintStream out) {
 		if(itemWidth==0 || itemHeight==0)
 			autoItemSize();
-		out.printf("<svg width=\"%d\" height=\"%d\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\">\n", getWidth(), getHeight());
+		startSvg(out, getWidth(), getHeight(), true);
 
 		int index;
 
@@ -88,6 +88,13 @@ public class Page extends GridLayout {
 		printItems(out, 0, 0);
 
 		out.println("</svg>");
+	}
+	
+	public static void startSvg(PrintStream out, int w, int h, boolean xlink) {
+		out.printf("<svg width=\"%d\" height=\"%d\" xmlns=\"http://www.w3.org/2000/svg\"", w, h);
+		if(xlink)
+			out.print(" xmlns:xlink=\"http://www.w3.org/1999/xlink\"");
+		out.println(">");
 	}
 	
 }

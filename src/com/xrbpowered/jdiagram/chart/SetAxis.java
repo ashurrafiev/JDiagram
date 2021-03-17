@@ -12,6 +12,7 @@ public class SetAxis extends Axis {
 	public SetAxis(Data data, String labelHdr) {
 		this.data = data;
 		this.labelHdr = labelHdr;
+		this.labelAnchor = Anchor.left.offset(-15);
 	}
 	
 	public SetAxis(Data data) {
